@@ -5,6 +5,10 @@
 
 #include "Cfg.h"
 
+#define SCREENTILESX 16
+#define SCREENTILESY 12
+
+
 int main(int argc, char* argv[])
 {
     Cfg::Initialize();
@@ -25,6 +29,25 @@ int main(int argc, char* argv[])
 
     // change the title of the window
     window.setTitle("SFML window");
+
+    sf::Sprite playerSpr(Cfg::textures.get((int)Cfg::Textures::PlayerAtlas));
+    playerSpr.setTextureRect({ {0*130,1*160},{130,160} });
+    playerSpr.setPosition({300.f, 390.f});
+
+    std::vector<sf::Sprite> tiles;
+    for (int i = 0; i < SCREENTILESY - 1; i++)
+    {
+        tiles.emplace_back(sf::Sprite{ Cfg::textures.get((int)Cfg::Textures::Tileset1) });
+        tiles[tiles.size() - (size_t)1].setTextureRect({ {0 * 50,0 * 50},{50,50} });
+        tiles[tiles.size() - (size_t)1].setPosition({ 0.f, i * 50.f });
+    }
+    for (int i = 0; i < SCREENTILESX; i++)
+    {
+        tiles.emplace_back(sf::Sprite{ Cfg::textures.get((int)Cfg::Textures::Tileset1) });
+        tiles[tiles.size() - (size_t)1].setTextureRect({ {0 * 50,0 * 50},{50,50} });
+        tiles[tiles.size() - (size_t)1].setPosition({ i * 50.f, 550.f});
+    }
+
     // run the program as long as the window is open
     sf::Clock deltaClock;
     while (window.isOpen())
@@ -53,6 +76,11 @@ int main(int argc, char* argv[])
 
         window.clear(sf::Color(47, 147, 247, 255));
 
+        for (auto& spr : tiles)
+        {
+            window.draw(spr);
+        }
+        window.draw(playerSpr);
 
         ImGui::SFML::Render(window);
         window.display();
