@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source Files\external">
       <UniqueIdentifier>{6dffecea-1faf-446f-9c69-ea6d7cb752f9}</UniqueIdentifier>
     </Filter>
@@ -37,6 +33,36 @@
     <Filter Include="Assets\Fonts">
       <UniqueIdentifier>{80c7878e-2fa8-4a93-b1c0-33e8211e467b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Textures">
+      <UniqueIdentifier>{b2820f2d-043e-45c6-bc6c-36a215e5c9bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures\Backgrounds">
+      <UniqueIdentifier>{a05bee55-ee09-46f0-9fcc-a7861693aa87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures\GameObjects">
+      <UniqueIdentifier>{1f025a3c-1f3c-494f-8fa8-0d459ff31af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures\Tilesets">
+      <UniqueIdentifier>{df0175bc-f37d-468d-97ee-81f7ec621170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures\GameObjects\Player">
+      <UniqueIdentifier>{f583ff78-c09d-46f0-bbc9-abffb0fdf1d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{5bf5b883-bffd-42e6-99b9-dc5159e62752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\Resources">
+      <UniqueIdentifier>{d0c70703-1666-412a-9e71-5e83a6d1dcda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{d55ca98b-060f-462a-8745-06b907f24516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\Resources">
+      <UniqueIdentifier>{ca022307-9ecc-49db-b483-8aee9402604d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\Resources\tpl">
+      <UniqueIdentifier>{4a0327cc-f5ef-497b-a4e8-61a235ef2e2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -56,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="external\ImGui\imgui_widgets.cpp">
       <Filter>Source Files\external\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Resources\Cfg.cpp">
+      <Filter>Source Files\core\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,10 +115,50 @@
     <ClInclude Include="external\ImGui\ImGui_SFML3\imgui-SFML_export.h">
       <Filter>Header Files\external\ImGui\ImGui_SFML3</Filter>
     </ClInclude>
+    <ClInclude Include="src\Resources\Cfg.h">
+      <Filter>Header Files\core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Resources\Maps.h">
+      <Filter>Header Files\core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Resources\ResourceManager.h">
+      <Filter>Header Files\core\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Crusty.ttf">
       <Filter>Assets\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Textures\Tilesets\EmptyTile.png">
+      <Filter>Assets\Textures\Tilesets</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Tilesets\TSet1_50x50.png">
+      <Filter>Assets\Textures\Tilesets</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Invariant.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\GameObjects\Player\PlayerAtlas.png">
+      <Filter>Assets\Textures\GameObjects\Player</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Backgrounds\bgSpace.png">
+      <Filter>Assets\Textures\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Backgrounds\bgSpace2.png">
+      <Filter>Assets\Textures\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Backgrounds\GameStartBG.jpg">
+      <Filter>Assets\Textures\Backgrounds</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Backgrounds\GameStartBGBig.jpg">
+      <Filter>Assets\Textures\Backgrounds</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Resources\tpl\ResourceManager.tpl">
+      <Filter>Header Files\core\Resources\tpl</Filter>
+    </None>
   </ItemGroup>
 </Project>

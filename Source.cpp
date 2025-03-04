@@ -3,8 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Cfg.h"
+
 int main(int argc, char* argv[])
 {
+    Cfg::Initialize();
+
 	sf::RenderWindow window(sf::VideoMode({ 800, 600 }),"SFML3 Game", sf::Style::Titlebar | sf::Style::Close, sf::State::Windowed);
     bool soWhat = ImGui::SFML::Init(window, false);
     soWhat = false;
