@@ -5,7 +5,7 @@
 
 #include <Resources/Cfg.h>
 
-#include <GameObjects/GameObject.h>
+#include <Tilemap/Tilemap.h>
 
 
 int main(int argc, char* argv[])
@@ -29,12 +29,7 @@ int main(int argc, char* argv[])
     // change the title of the window
     window.setTitle("SFML window");
 
-    sf::Sprite playerSpr(Cfg::textures.get((int)Cfg::Textures::PlayerAtlas));
-    playerSpr.setTextureRect({ {0*130,1*160},{130,160} });
-    playerSpr.setPosition({300.f, 390.f});
-
-    std::vector<sf::Sprite> tiles;
-    for (int i = 0; i < SCREENTILESY - 1; i++)
+   /* for (int i = 0; i < SCREENTILESY - 1; i++)
     {
         tiles.emplace_back(sf::Sprite{ Cfg::textures.get((int)Cfg::Textures::Tileset1) });
         tiles[tiles.size() - (size_t)1].setTextureRect({ {0 * 50,0 * 50},{50,50} });
@@ -45,69 +40,160 @@ int main(int argc, char* argv[])
         tiles.emplace_back(sf::Sprite{ Cfg::textures.get((int)Cfg::Textures::Tileset1) });
         tiles[tiles.size() - (size_t)1].setTextureRect({ {0 * 50,0 * 50},{50,50} });
         tiles[tiles.size() - (size_t)1].setPosition({ i * 50.f, 550.f});
-    }
+    }*/
 
 
-    GameObject gameObject{ {500.f, 400.f}, {50.f,50.f} };
+    std::vector<sf::Vector2f> offs = {
+        {0.f,0.f},
+        {0.f,0.f}, 
+        {0.f,0.f}
+    };
+    
+    Tilemap tmap1;
+    tmap1.SetupTileset({ 50.f,50.f }, Cfg::Textures::Tileset1, 25, 5, 24);
+    int tilemapTiles[] = {
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        02, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 02,
+        00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24
+    };
+    tmap1.SetupTilemap(tilemapTiles, 40, 30, { 50,50 });
 
     // run the program as long as the window is open
     sf::Clock deltaClock;
+    bool upPressed{ false };
+    bool downPressed{ false };
+    bool leftPressed{ false };
+    bool rightPressed{ false };
+    sf::View vw = window.getDefaultView();
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
+        
+        sf::Time dt = deltaClock.restart();
+
         while (const std::optional event = window.pollEvent())
         {
             ImGui::SFML::ProcessEvent(window, *event);
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>())
                 window.close();
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyReleased>())
             {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
                     window.close();
+
+
+                if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                    upPressed = false;
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                    downPressed = false;
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                    leftPressed = false;
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                    rightPressed = false;
             }
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyReleased>())
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::W)
-                {
-                    gameObject.move({0.f , -200 * 0.013f});
-                }
+                    upPressed = true;
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
-                {
-                    gameObject.move({ 0.f , 200 * 0.013f });
-                }
-
-                if (keyPressed->scancode == sf::Keyboard::Scancode::A)
-                {
-                    gameObject.move({ -200 * 0.013f, 0.f });
-                }
+                    downPressed = true;
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                    leftPressed = true;
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
-                {
-                    gameObject.move({ 200 * 0.013f, 0.f });
-                }
+                    rightPressed = true;
             }
-
         }
-        gameObject.Update(0.00013f);
+        
+        if (rightPressed)
+        {
+            // store players pixel position mapped from coords, and use that to map to coords when moving the player  after the map , or if moving just the player, dont worry about this
+            if (vw.getCenter().x < tmap1.Cols() * tmap1.TW() - (vw.getSize().x / 2.f))
+                vw.setCenter({ vw.getCenter().x + (300.f * dt.asSeconds()), vw.getCenter().y}); // and put player at same pixel in the window as was before the move;
+            //else
+               //movePlayerInstead
+            /* if (vw.getCenter().x > (tmap1.Cols() * tmap1.getTiles().at(0).getTexRectSize().x) - (vw.getSize().x / 2.f) - tmap1.getTiles().at(0).getTexRectSize().x)
+            {
+                vw.setCenter({ (tmap1.Cols() * tmap1.getTiles().at(0).getTexRectSize().x) - (vw.getSize().x / 2.f) - tmap1.getTiles().at(0).getTexRectSize().x,vw.getCenter().y});
+            }
+             */
+            
+        }
+        if (leftPressed)
+        {
+            if (vw.getCenter().x - (300.f * dt.asSeconds()) > vw.getSize().x / 2)
+                vw.setCenter({ vw.getCenter().x + (-300.f * dt.asSeconds()), vw.getCenter().y });
+            /*if (vw.getCenter().x < (vw.getSize().x / 2.f))
+             {
+               vw.setCenter({ (vw.getSize().x / 2.f) , vw.getCenter().y });
+            }*/
+           
+        }
+        if (upPressed)
+        {
+            if (vw.getCenter().y - (300.f * dt.asSeconds()) > vw.getSize().y / 2)
+                vw.setCenter({ vw.getCenter().x,  vw.getCenter().y + (-300.f * dt.asSeconds()) });
+            //if (vw.getCenter().y < (vw.getSize().y / 2.f))
+            //{
+            //    vw.setCenter({ vw.getCenter().x, (vw.getSize().y / 2.f) });
+            //}
+           
+        }
+        if (downPressed)
+        {
+            if (vw.getCenter().y < tmap1.Rows() * tmap1.TH() - (vw.getSize().y / 2))
+                vw.setCenter({ vw.getCenter().x,  vw.getCenter().y + (300.f * dt.asSeconds()) });
+           
+            /*if (vw.getCenter().y > (tmap1.Rows() * tmap1.getTiles().at(0).getTexRectSize().y) - (vw.getSize().y / 2.f) - tmap1.getTiles().at(0).getTexRectSize().y)
+            {
+                vw.setCenter({vw.getCenter().x, (tmap1.Rows() * tmap1.getTiles().at(0).getTexRectSize().y) - (vw.getSize().y / 2.f) - tmap1.getTiles().at(0).getTexRectSize().y });
+
+            }*/
+     
+        }
+        
 
         soWhat = ImGui::SFML::UpdateFontTexture(); // important call: updates font texture
-        ImGui::SFML::Update(window, deltaClock.restart());
+        ImGui::SFML::Update(window, dt);
 
         ImGui::Begin("Hello, world!");
         ImGui::Button("Look at this pretty button");
         ImGui::End();
-
+        
+        window.setView(vw);
         window.clear(sf::Color(47, 147, 247, 255));
+        
 
-        for (auto& spr : tiles)
-        {
-            window.draw(spr);
+        tmap1.Render(window, dt.asSeconds());
 
-        }
-        window.draw(playerSpr);
-
-        gameObject.Render(window);
-
+        
         ImGui::SFML::Render(window);
         window.display();
 

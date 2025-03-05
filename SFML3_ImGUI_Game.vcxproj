@@ -114,7 +114,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\core;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +156,9 @@
     <ClCompile Include="src\GameObjects\GameObject.cpp" />
     <ClCompile Include="src\GameObjects\InvisibleObject.cpp" />
     <ClCompile Include="src\GameObjects\VisibleObject.cpp" />
+    <ClCompile Include="src\Tilemap\Tile.cpp" />
+    <ClCompile Include="src\Tilemap\Tilemap.cpp" />
+    <ClCompile Include="src\Tilemap\Tileset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\ImGui\imconfig.h" />
@@ -174,6 +177,9 @@
     <ClInclude Include="src\GameObjects\GameObject.h" />
     <ClInclude Include="src\GameObjects\InvisibleObject.h" />
     <ClInclude Include="src\GameObjects\VisibleObject.h" />
+    <ClInclude Include="src\Tilemap\Tile.h" />
+    <ClInclude Include="src\Tilemap\Tilemap.h" />
+    <ClInclude Include="src\Tilemap\Tileset.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Crusty.ttf" />

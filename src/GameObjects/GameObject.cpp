@@ -12,21 +12,38 @@
 //	bboxMap.at("Invariant").at("Invariant").emplace_back(BBox{this});
 //
 //}
-
-GameObject::GameObject(const sf::Vector2f& pos, const sf::Vector2f& size)
-	: pos_{pos}
+GameObject::GameObject(sf::Vector2f size, sf::Vector2f texRectSize)
 {
+	pos_.x = 0.f;
+	pos_.y = 0.f;
 	numFrames_.clear();
 	numFrames_.push_back(1);
 	texFrames_.clear();
 	sizes_.clear();
-	sizes_.push_back({ 50.f,50.f });
-	texFrames_.push_back(std::vector<sf::IntRect>{});
-	texFrames_[texFrames_.size() - (size_t)1].clear();
-	texFrames_[texFrames_.size() - (size_t)1].push_back({ { 0, 0 }, { 50,50 } });
-	offsets_.push_back(std::vector<sf::Vector2f>{});
-	offsets_[offsets_.size() - (size_t)1].clear();
-	offsets_[offsets_.size() - (size_t)1].push_back({ 0.f, 0.f  });
+	sizes_.push_back({ size.x, size.y });
+	texFrames_.push_back(std::unordered_map<std::string, std::vector<sf::IntRect>>{});
+	texFrames_[0].clear();
+	offsets_.push_back(std::unordered_map<std::string, std::vector<sf::Vector2f>>{});
+	offsets_[0].clear();
+
+
+	if (texRectSize.x == 0 || texRectSize.y == 0)
+	{
+		texFrames_[0]["Uni"] = std::vector<sf::IntRect>{};
+		texFrames_[0]["Uni"].clear();
+		texFrames_[0]["Uni"].push_back(sf::IntRect{ {0, 0}, {(int)size.x, (int)size.y} });
+		
+	}
+	else
+	{
+		texFrames_[0]["Uni"] = std::vector<sf::IntRect>{};
+		texFrames_[0]["Uni"].clear();
+		texFrames_[0]["Uni"].push_back({{0, 0}, {(int)texRectSize.x, (int)texRectSize.y}});
+	}
+
+	offsets_[0]["Uni"] = std::vector<sf::Vector2f>{};
+	offsets_[0]["Uni"].clear();
+	offsets_[0]["Uni"].push_back(sf::Vector2f{ 0.f,0.f });
 	animIDs_.clear();
 	animIDs_.push_back("Invariant");
 	currID_ = "Invariant";
@@ -68,6 +85,8 @@ size_t GameObject::getIndex(const std::string& id_)
 	return (size_t)0;
 }
 
+
+
 GameObject::~GameObject()
 {
 
@@ -105,9 +124,8 @@ GameObject::~GameObject()
 std::unique_ptr<sf::Sprite> GameObject::sprite()
 {
 	std::unique_ptr<sf::Sprite> tmp = std::make_unique<sf::Sprite>(Cfg::textures.get((int)texIDs_[getIndex()]));
-//	tmp->setTexture(Cfg::textures.get((int)texIDs_[getIndex()]));
-	tmp->setTextureRect(texFrames_[getIndex()][currFrame_]);
-	tmp->setPosition({ pos_.x - offsets_[getIndex()][currFrame_].x, pos_.y - offsets_[getIndex()][currFrame_].y });
+	tmp->setTextureRect(texFrames_[getIndex()][currDir_][currFrame_]);
+	tmp->setPosition({ pos_.x - offsets_[getIndex()][currDir_][currFrame_].x, pos_.y - offsets_[getIndex()].at(currDir_).at(currFrame_).y });
 	return std::move(tmp);
 }
 
