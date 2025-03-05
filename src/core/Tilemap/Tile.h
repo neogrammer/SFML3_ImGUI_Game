@@ -1,16 +1,29 @@
 #pragma once
-#include <GameObjects/StaticObject.h>
+//#include <GameObjects/StaticObject.h>
 #include <Resources/Cfg.h>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <vector>
 
-class Tile : public StaticObject
+class Tile // : public StaticObject
 {
 	friend class Tilemap;
 private:
-	bool solid{ false };
-	float x_, y_, w_, h_;
-	int tx_, ty_, tw_, th_;
-	int currFrame_;
-	Cfg::Textures type_;
+		bool solid{ false };
+		sf::Vector2f pos{}; // 
+		float x_, y_; 
+		sf::Vector2f size{}; // 
+		float w_, h_;
+
+		std::vector<sf::IntRect> texFrames{};
+		int tx_, ty_, tw_, th_;
+
+
+		size_t currFrame_{ 0 };
+		size_t numFrames_{ 1 };
+
+		Cfg::Textures texID_{ Cfg::Textures::Invariant };
+		Cfg::Textures type_;
 public:
 	Tile(float x_ = 0.f, float y_ = 0.f, float w_ = 50.f, float h_ = 50.f);
 	Tile(bool solid_, Cfg::Textures type, float x_ = 0.f, float y_ = 0.f, float w_ = 50.f, float h_ = 50.f,
@@ -25,9 +38,9 @@ public:
 	Tile(Tile&&) = default;
 
 	// override the update if you need it
-	void Update(float dt_) override final;
+	virtual void Update(float dt_);
 
-	void Render(sf::RenderWindow& wnd_) override final;
+	virtual void Render(sf::RenderWindow& wnd_);
 	void SetSolid(bool solid_);
 	inline bool getSolid() { return solid; }
 	inline float & x() { return x_; }

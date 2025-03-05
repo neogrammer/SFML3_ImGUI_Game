@@ -5,6 +5,10 @@
 #include "ResourceManager.h"
 #include <vector>
 #include <SFML/Audio.hpp>
+
+#define SCREENTILESX 16
+#define SCREENTILESY 12
+
 class Cfg
 {
 public:

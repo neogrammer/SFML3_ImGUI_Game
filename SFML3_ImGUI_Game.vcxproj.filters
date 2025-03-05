@@ -63,6 +63,21 @@
     <Filter Include="Header Files\core\Resources\tpl">
       <UniqueIdentifier>{4a0327cc-f5ef-497b-a4e8-61a235ef2e2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\core\Tilemap">
+      <UniqueIdentifier>{48fb779f-d6a3-42d0-8e3d-c3c780512b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{dbd70334-75cb-4824-9640-4eaaad45f875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects\Player">
+      <UniqueIdentifier>{dac16b8e-8ecb-486d-a9ed-c7fa95a92081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{c6d24c9f-fb9b-42e7-97eb-97b1f42b2735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Player">
+      <UniqueIdentifier>{6b6a96a1-0712-4449-95aa-07380a52fb5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -83,8 +98,17 @@
     <ClCompile Include="external\ImGui\imgui_widgets.cpp">
       <Filter>Source Files\external\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\Cfg.cpp">
+    <ClCompile Include="src\core\Resources\Cfg.cpp">
       <Filter>Source Files\core\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\GameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\VisibleObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\InvisibleObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,14 +139,26 @@
     <ClInclude Include="external\ImGui\ImGui_SFML3\imgui-SFML_export.h">
       <Filter>Header Files\external\ImGui\ImGui_SFML3</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\Cfg.h">
+    <ClInclude Include="src\core\Resources\Cfg.h">
       <Filter>Header Files\core\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\Maps.h">
+    <ClInclude Include="src\core\Resources\Maps.h">
       <Filter>Header Files\core\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\ResourceManager.h">
+    <ClInclude Include="src\core\Resources\ResourceManager.h">
       <Filter>Header Files\core\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Tilemap\Tile.h">
+      <Filter>Header Files\core\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\GameObject.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\VisibleObject.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\InvisibleObject.h">
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +193,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Resources\tpl\ResourceManager.tpl">
+    <None Include="src\core\Resources\tpl\ResourceManager.tpl">
       <Filter>Header Files\core\Resources\tpl</Filter>
     </None>
   </ItemGroup>

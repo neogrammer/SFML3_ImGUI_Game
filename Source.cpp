@@ -3,10 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Cfg.h"
+#include <Resources/Cfg.h>
 
-#define SCREENTILESX 16
-#define SCREENTILESY 12
+#include <GameObjects/GameObject.h>
 
 
 int main(int argc, char* argv[])
@@ -48,6 +47,9 @@ int main(int argc, char* argv[])
         tiles[tiles.size() - (size_t)1].setPosition({ i * 50.f, 550.f});
     }
 
+
+    GameObject gameObject{ {500.f, 400.f}, {50.f,50.f} };
+
     // run the program as long as the window is open
     sf::Clock deltaClock;
     while (window.isOpen())
@@ -64,8 +66,29 @@ int main(int argc, char* argv[])
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
                     window.close();
             }
-        }
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyReleased>())
+            {
+                if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                {
+                    gameObject.move({0.f , -200 * 0.013f});
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                {
+                    gameObject.move({ 0.f , 200 * 0.013f });
+                }
 
+                if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                {
+                    gameObject.move({ -200 * 0.013f, 0.f });
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                {
+                    gameObject.move({ 200 * 0.013f, 0.f });
+                }
+            }
+
+        }
+        gameObject.Update(0.00013f);
 
         soWhat = ImGui::SFML::UpdateFontTexture(); // important call: updates font texture
         ImGui::SFML::Update(window, deltaClock.restart());
@@ -79,8 +102,11 @@ int main(int argc, char* argv[])
         for (auto& spr : tiles)
         {
             window.draw(spr);
+
         }
         window.draw(playerSpr);
+
+        gameObject.Render(window);
 
         ImGui::SFML::Render(window);
         window.display();
