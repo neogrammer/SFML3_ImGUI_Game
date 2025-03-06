@@ -1,8 +1,10 @@
 #include "Tile.h"
 
-Tile::Tile(sf::Vector2f texRectSize, Cfg::Textures texID, sf::Vector2f startPos, int pitch)
+Tile::Tile(sf::Vector2f texRectSize, Cfg::Textures texID, sf::Vector2f startPos, int pitch, bool visible, int type)
 	: VisibleObject(texRectSize, texRectSize, texID, startPos, pitch, 1, "Uni", "Tileset", std::vector<sf::Vector2f>{})
 	, pitch_{pitch}
+	, visible_{visible}
+	, type_{type}
 {
 
 }

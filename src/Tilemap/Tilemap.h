@@ -2,6 +2,11 @@
 
 #include "Tileset.h"
 #include <SFML/Graphics/RenderWindow.hpp>
+
+
+
+
+
 class Tilemap
 {
 	Tileset tset_{};
@@ -12,7 +17,10 @@ class Tilemap
 	int th_{ 0 };
 public:
 
-	void SetupTileset(sf::Vector2f texRectSize, Cfg::Textures texID, int numFrames, int pitch, int emptyTileNum);
+
+	void Initialize(LevelName level);
+
+	void SetupTileset(int* tilesetDataType, sf::Vector2f texRectSize, Cfg::Textures texID, int numFrames, int pitch, int emptyTileNum);
 	void SetupTilemap(int* tilesetTileNums, int cols, int rows, sf::Vector2f size_ = {50.f, 50.f});
 
 	std::vector<Tile> getTiles();

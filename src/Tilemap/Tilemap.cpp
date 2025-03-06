@@ -1,14 +1,25 @@
 #include "Tilemap.h"
 
-void Tilemap::SetupTileset(sf::Vector2f texRectSize, Cfg::Textures texID, int numFrames, int pitch, int emptyTileNum)
+void Tilemap::Initialize(LevelName level)
 {
+	TSET ts = getTilesetData(level);
+	this->SetupTileset(ts.tileDataType, { (float)ts.tw,(float)ts.th }, ts.texID, ts.cols * ts.rows, ts.cols, ts.cols * ts.rows - 1);
+	TMAP tmapData = getLevelData(level);
+	this->SetupTilemap(tmapData.level, (int)tmapData.cols, (int)tmapData.rows, { (float)tmapData.tw, (float)tmapData.th });
+}
 
+void Tilemap::SetupTileset(int* tilesetDataType, sf::Vector2f texRectSize, Cfg::Textures texID, int numFrames, int pitch, int emptyTileNum)
+{
+	if (tilesetDataType == nullptr)
+		return;
 
 	for (int y = 0; y < numFrames / pitch; y++)
 	{
 		for (int x = 0; x < pitch; x++)
 		{
-			tset_.AddTile(texRectSize, texID, { x * texRectSize.x, y * texRectSize.y }, pitch);
+			int num = y * pitch + x;
+			int theType = tilesetDataType[num];
+			tset_.AddTile(texRectSize, texID, { x * texRectSize.x, y * texRectSize.y }, pitch, ((theType == 2 || theType == 3) ? true : false), theType);
 			tset_.getTiles().at(tset_.getTiles().size() - (size_t)1)->setPos({ x * texRectSize.x, y * texRectSize.y });
 			if (y * pitch + x == emptyTileNum)
 				tset_.getTiles().at(tset_.getTiles().size() - (size_t)1)->setVisible(false);
@@ -20,8 +31,8 @@ void Tilemap::SetupTilemap(int* tilesetTileNums, int cols, int rows, sf::Vector2
 {
 	cols_ = cols;
 	rows_ = rows;
-	tw_ = size_.x;
-	th_ = size_.y;
+	tw_ = (int)size_.x;
+	th_ = (int)size_.y;
 
 	if (tset_.getTiles().empty())
 		return;
@@ -36,7 +47,7 @@ void Tilemap::SetupTilemap(int* tilesetTileNums, int cols, int rows, sf::Vector2
 				continue;
 			}
 			std::unique_ptr<Tile> aTile = std::move(tset_.copyTile(num));
-			tiles_.emplace_back((sf::Vector2f)aTile->getTexRectSize(), aTile->getTextureID(), (sf::Vector2f)aTile->getTexPos(), aTile->getPitch());
+			auto& t = tiles_.emplace_back((sf::Vector2f)aTile->getTexRectSize(), aTile->getTextureID(), (sf::Vector2f)aTile->getTexPos(), aTile->getPitch(), aTile->isVisible(), aTile->getType());
 			tiles_.at(tiles_.size() - (size_t)1).setPos({ (float)x * (float)tset_.getTiles().at(num)->getTexRectSize().x, (float)y * (float)tset_.getTiles().at(num)->getTexRectSize().y });
 		}
 	}
@@ -76,8 +87,8 @@ void Tilemap::Render(sf::RenderWindow& wnd_, float dt_)
 			int i = y * cols_ + x;
 			if (i >= tiles_.size())
 				continue;
-			if (tiles_[i].isVisible())
-				wnd_.draw(*tiles_[i].sprite());
+			if (tiles_[i].getType() != 0 && tiles_[i].getType() != 3)
+					wnd_.draw(*tiles_[i].sprite());
 		}
 	}
 }

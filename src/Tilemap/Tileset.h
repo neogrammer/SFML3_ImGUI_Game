@@ -10,7 +10,7 @@ class Tileset
 
 public:
 	void AddTile(std::unique_ptr<Tile> tile);
-	void AddTile(sf::Vector2f texRectSize, Cfg::Textures texID, sf::Vector2f startPos, int pitch);
+	void AddTile(sf::Vector2f texRectSize, Cfg::Textures texID, sf::Vector2f startPos, int pitch, bool visible_, int type_);
 
 	std::vector<std::unique_ptr<Tile>>& getTiles();
 	std::unique_ptr<Tile> copyTile(int index);
