@@ -22,16 +22,14 @@ protected:
 
 	std::vector<std::string> animIDs_{};    //	int tx_, ty_, tw_, th_;
 	std::vector<bool> isUniDirectional_{};
-	std::vector<Cfg::Textures> texIDs_{};
-
+	Cfg::Textures textureID_{ Cfg::Textures::Invariant };
 	std::string currID_{ "Invariant" };
 	std::string currDir_{ "Uni" };
 
 	size_t currFrame_{ 0 };
 	size_t numAnimations_{ 0 };
 
-	size_t getIndex();
-	size_t getIndex(const std::string& id_);
+	
 
 public:
 	GameObject(sf::Vector2f size, sf::Vector2f texRectSize = { 0.f,0.f });
@@ -63,11 +61,15 @@ public:
 	//virtual BBox& getBBox(); // current
 	//virtual BBox& getBBox(std::string id_, std::string dir_, int index_);
     std::string CurrID();
+	void setCurrID(const std::string& id_);
 	std::string CurrDir();
 	inline const std::string& CurrDir() const { return currDir_; }
 
 	sf::Vector2f getPos();
 	void setPos(sf::Vector2f pos);
 	void move(sf::Vector2f amt);
+
+	virtual size_t getIndex() const;
+	virtual size_t getIndex(const std::string& id_);
 
 };

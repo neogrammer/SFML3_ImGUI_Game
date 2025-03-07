@@ -20,8 +20,8 @@ public:
 
 	void Initialize(LevelName level);
 
-	void SetupTileset(int* tilesetDataType, sf::Vector2f texRectSize, Cfg::Textures texID, int numFrames, int pitch, int emptyTileNum);
-	void SetupTilemap(int* tilesetTileNums, int cols, int rows, sf::Vector2f size_ = {50.f, 50.f});
+	void SetupTileset(std::vector<int> tilesetDataType, sf::Vector2f texRectSize, Cfg::Textures texID, int numFrames, int pitch);
+	void SetupTilemap(std::vector<int> tilesetTileNums, int cols, int rows, sf::Vector2f size_ = {50.f, 50.f});
 
 	std::vector<Tile> getTiles();
 	int Cols() { return cols_; }

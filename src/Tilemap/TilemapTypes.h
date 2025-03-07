@@ -17,7 +17,7 @@ struct TMAP
     TMAP(TMAP&&);
     TMAP& operator=(TMAP&&);
 
-    int* level{ nullptr };
+    std::vector<int> level{};
     int cols{ 1 };
     int rows{ 1 };
     int tw{ 50 };
@@ -33,9 +33,10 @@ struct TSET
     TSET(TSET&&);
     TSET& operator=(TSET&&);
 
+
     Cfg::Textures texID{ Cfg::Textures::Invariant };
 
-    int* tileDataType{ nullptr };
+    std::vector<int> tileDataType{};
     int cols{ 1 };
     int rows{ 1 };
     int tw{ 50 };

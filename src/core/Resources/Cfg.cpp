@@ -36,7 +36,7 @@ void Cfg::initTextures()
 	textures.load((int)Textures::BGSTART_BIG, "Assets/Textures/Backgrounds/bgSpace2.png");
 
 	textures.load((int)Textures::PlayerAtlas, "Assets/Textures/GameObjects/Player/PlayerAtlas.png");
-	textures.load((int)Textures::Tileset1, "Assets/Textures/Tilesets/TSet1_50x50.png");
+	textures.load((int)Textures::Tileset1, "Assets/Textures/Tilesets/IntroSet.png");
 	textures.load((int)Textures::Invariant, "Assets/Textures/Invariant.png");
 	textures.load((int)Textures::EmptyTile, "Assets/Textures/Tilesets/EmptyTile.png");
 }

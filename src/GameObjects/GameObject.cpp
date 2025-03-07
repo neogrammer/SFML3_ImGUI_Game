@@ -51,13 +51,11 @@ GameObject::GameObject(sf::Vector2f size, sf::Vector2f texRectSize)
 	currDir_ = "Uni";
 	currFrame_ = (size_t)0;
 	numAnimations_ = 0;
-	texIDs_.clear();
-	texIDs_.push_back(Cfg::Textures::Invariant);
 }
 
 
 
-size_t GameObject::getIndex()
+size_t GameObject::getIndex() const
 {
 	// add one for the invariante
 	for (int i = 0; i < numAnimations_ + 1; i++)
@@ -123,7 +121,7 @@ GameObject::~GameObject()
 
 std::unique_ptr<sf::Sprite> GameObject::sprite()
 {
-	std::unique_ptr<sf::Sprite> tmp = std::make_unique<sf::Sprite>(Cfg::textures.get((int)texIDs_[getIndex()]));
+	std::unique_ptr<sf::Sprite> tmp = std::make_unique<sf::Sprite>(Cfg::textures.get((int)textureID_));
 	tmp->setTextureRect(texFrames_[getIndex()][currDir_][currFrame_]);
 	tmp->setPosition({ pos_.x - offsets_[getIndex()][currDir_][currFrame_].x, pos_.y - offsets_[getIndex()].at(currDir_).at(currFrame_).y });
 	return std::move(tmp);
@@ -137,6 +135,13 @@ void GameObject::Render(sf::RenderWindow& wnd_)
 std::string GameObject::CurrID()
 {
 	return currID_;
+}
+
+void GameObject::setCurrID(const std::string& id_)
+{
+	if (getIndex(id_) > 0)
+		currID_ = id_;
+
 }
 
 std::string GameObject::CurrDir()

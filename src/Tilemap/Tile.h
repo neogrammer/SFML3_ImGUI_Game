@@ -9,7 +9,12 @@ class Tile : public VisibleObject
 	bool visible_{ true };
 public:
 	Tile(sf::Vector2f texRectSize, Cfg::Textures texID, sf::Vector2f startPos, int pitch, bool visible, int type);
+
 	~Tile() override final {}
+	Tile(const Tile& o);
+	Tile& operator=(const Tile& o);
+	Tile(Tile&& o);
+	Tile& operator=(Tile&& o);
 
 	void Render(sf::RenderWindow& wnd_) override final;
 
@@ -29,5 +34,10 @@ public:
 		type_ = type;
 	}
 
+	bool isEmpty(); 
+	virtual size_t getIndex() const override final;
+	virtual size_t getIndex(const std::string& id_) override final;
+	int getTW() { return this->sizes_[this->getIndex()].x; }
+	int getTH() { return this->sizes_[this->getIndex()].y; }
 
 };

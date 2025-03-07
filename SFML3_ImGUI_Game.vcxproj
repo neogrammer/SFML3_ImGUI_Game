@@ -79,6 +79,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)external;C:\sdks\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,6 +98,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)external;C:\sdks\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,6 +117,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +138,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\core;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,6 +197,7 @@
     <Image Include="Assets\Textures\GameObjects\Player\PlayerAtlas.png" />
     <Image Include="Assets\Textures\Invariant.png" />
     <Image Include="Assets\Textures\Tilesets\EmptyTile.png" />
+    <Image Include="Assets\Textures\Tilesets\IntroSet.png" />
     <Image Include="Assets\Textures\Tilesets\TSet1_50x50.png" />
   </ItemGroup>
   <ItemGroup>

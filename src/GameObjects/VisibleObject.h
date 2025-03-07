@@ -10,8 +10,14 @@ public:
 	virtual ~VisibleObject() override {}
 
 	virtual void Render(sf::RenderWindow& wnd_) override;
-
+	sf::Vector2i getFrameSize();
+	sf::Vector2i getFrameSize(const std::string& animID);
+	virtual sf::IntRect getTexFrame(const std::string& animID, const std::string& dir, size_t frameNum);
 protected:
-	Cfg::Textures textureID_{ Cfg::Textures::Invariant };
-	std::vector<sf::Vector2f> offsets{};
+
+	virtual size_t getIndex() const override;
+	virtual size_t getIndex(const std::string& id_) override;
+
+
+
 };
