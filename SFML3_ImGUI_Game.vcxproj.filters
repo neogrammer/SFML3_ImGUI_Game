@@ -78,6 +78,12 @@
     <Filter Include="Source Files\GameObjects\Player">
       <UniqueIdentifier>{6b6a96a1-0712-4449-95aa-07380a52fb5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tilemap">
+      <UniqueIdentifier>{916c3169-605a-4a03-8880-200dc452093f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tilemap">
+      <UniqueIdentifier>{602c6008-484e-473d-b991-868e3295a94e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -101,14 +107,26 @@
     <ClCompile Include="src\core\Resources\Cfg.cpp">
       <Filter>Source Files\core\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObjects\GameObject.cpp">
+    <ClCompile Include="src\Tilemap\Tilemap.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tilemap\Tileset.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tilemap\TilemapTypes.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\GObj.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObjects\VisibleObject.cpp">
+    <ClCompile Include="src\Tilemap\TileObj.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\DrawableObj.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObjects\InvisibleObject.cpp">
-      <Filter>Source Files\GameObjects</Filter>
+    <ClCompile Include="src\GameObjects\Player\PlayerObj.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,17 +166,26 @@
     <ClInclude Include="src\core\Resources\ResourceManager.h">
       <Filter>Header Files\core\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Tilemap\Tile.h">
-      <Filter>Header Files\core\Tilemap</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObjects\GameObject.h">
+    <ClInclude Include="src\GameObjects\DrawableObj.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObjects\VisibleObject.h">
+    <ClInclude Include="src\Tilemap\Tilemap.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tilemap\Tileset.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\GObj.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObjects\InvisibleObject.h">
-      <Filter>Header Files\GameObjects</Filter>
+    <ClInclude Include="src\Tilemap\TilemapTypes.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tilemap\TileObj.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Player\PlayerObj.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,10 +218,14 @@
     <Image Include="Assets\Textures\Backgrounds\GameStartBGBig.jpg">
       <Filter>Assets\Textures\Backgrounds</Filter>
     </Image>
+    <Image Include="Assets\Textures\Tilesets\IntroSet.png">
+      <Filter>Assets\Textures\Tilesets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\core\Resources\tpl\ResourceManager.tpl">
       <Filter>Header Files\core\Resources\tpl</Filter>
     </None>
+    <None Include="Assets\Animations\Player.anim" />
   </ItemGroup>
 </Project>

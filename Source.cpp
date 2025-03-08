@@ -6,8 +6,11 @@
 #include <Resources/Cfg.h>
 
 #include <Tilemap/Tilemap.h>
-#include <malloc.h>
+
 #include <iostream>
+#include <GameObjects/Player/PlayerObj.h>
+
+
 int main(int argc, char* argv[])
 {
     Cfg::Initialize();
@@ -20,6 +23,9 @@ int main(int argc, char* argv[])
     Tilemap tmap1;
     tmap1.Initialize(LevelName::Intro);
 
+    PlayerObj player;
+
+
     // ImGui default Font load
     bool soWhat = ImGui::SFML::Init(window, false);
     soWhat = false;
@@ -27,7 +33,7 @@ int main(int argc, char* argv[])
    IO.Fonts->Clear(); // clear fonts if you loaded some before (even if only default one was loaded)
     // IO.Fonts->AddFontDefault(); // this will load default font as well
     IO.Fonts->AddFontFromFileTTF("Assets\\Fonts\\Crusty.ttf", 18.f);
-   
+
 
     // run the program as long as the window is open
     sf::Clock deltaClock;
@@ -96,6 +102,9 @@ int main(int argc, char* argv[])
                 vw.setCenter({ vw.getCenter().x,  vw.getCenter().y + (300.f * dt.asSeconds()) });
         }
 
+        player.update(dt.asSeconds());
+     
+
         // ImGui rendering
         soWhat = ImGui::SFML::UpdateFontTexture(); // important call: updates font texture
         ImGui::SFML::Update(window, dt);
@@ -109,6 +118,7 @@ int main(int argc, char* argv[])
         // render tilemap, then gameobjects, then foreground then GUI, then pause screen if paused
         tmap1.Render(window, dt.asSeconds());
 
+        player.render(window);
         // and last but not lease ImGui
         ImGui::SFML::Render(window);
         // swap chain buffer pointer swap

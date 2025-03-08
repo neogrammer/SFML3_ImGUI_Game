@@ -2,9 +2,9 @@
 
 void Tilemap::Initialize(LevelName level)
 {
-	TSET ts = getTilesetData(level);
+	TSET ts = NEWgetTilesetData(level);
 	this->SetupTileset(ts.tileDataType, { (float)ts.tw,(float)ts.th }, ts.texID, ts.cols * ts.rows, ts.cols);
-	TMAP tmapData = getLevelData(level);
+	TMAP tmapData = NEWgetLevelData(level);
 	this->SetupTilemap(tmapData.level, (int)tmapData.cols, (int)tmapData.rows, { (float)tmapData.tw, (float)tmapData.th });
 }
 
@@ -21,10 +21,7 @@ void Tilemap::SetupTileset(std::vector<int> tilesetDataType, sf::Vector2f texRec
 		{
 			int num = y * pitch + x;
 			int theType = tilesetDataType[num];
-			tset_.AddTile(texRectSize, texID, { x * texRectSize.x, y * texRectSize.y }, pitch, ((theType == 2 || theType == 3) ? true : false), theType);
-			tset_.getTiles()[num]->setPos({ x * texRectSize.x, y * texRectSize.y });
-			if (theType == 0 || theType == 3) // non visible types, if 3, it collides
-				tset_.getTiles()[num]->setVisible(false);
+			tset_.AddTile(texID, sf::IntRect{ sf::Vector2i{ (int)(x * (int)texRectSize.x), (int)(y * (int)texRectSize.y) }, sf::Vector2i(texRectSize) }, pitch, (TileType)theType, (theType == 0), { (float)x * texRectSize.x, (float)y * texRectSize.y });
 		}
 	}
 }
@@ -39,30 +36,44 @@ void Tilemap::SetupTilemap(std::vector<int> tilesetTileNums, int cols, int rows,
 	if (tset_.getTiles().empty())
 		return;
 
-	for (int y = 0; y < rows; y++)
-	{
-		for (int x = 0; x < cols; x++)
+	
+		std::vector<std::unique_ptr<TileObj>>& tileset = tset_.getTiles();
+		tiles_.clear();
+		tiles_.reserve(cols * rows);
+		for (int y = 0; y < rows; y++)
 		{
-			int num = tilesetTileNums[y * cols + x];
-			if (num >= tset_.getTiles().size())
+			for (int x = 0; x < cols; x++)
 			{
-				continue;
-			}   
-			//std::unique_ptr<Tile> aTile = std::move(tset_.copyTile(num));
-			tiles_.push_back(*tset_.copyTile(num));//(sf::Vector2f)aTile->getTexRectSize(), aTile->getTextureID(), (sf::Vector2f)aTile->getTexPos(), aTile->getPitch(), aTile->isVisible(), aTile->getType());
+				int num = tilesetTileNums[y * cols + x];
+				if (num >= tset_.getTiles().size())
+				{
+					continue;
+				}
+				//std::unique_ptr<Tile> aTile = std::move(tset_.copyTile(num));
+//				std::unique_ptr<TileObj> aTile = std::move(tset_.copyTile(num));
+
+				Cfg::Textures tex = tileset.at(num)->getTextureID();
+				sf::IntRect texRect = sf::IntRect{ (sf::Vector2i)tileset.at(num)->getTexRectPos(), (sf::Vector2i)tileset.at(num)->getTexRectSize() };
+				int pitch = tileset.at(num)->getPitch();
+				TileType type = tileset.at(num)->getType();
+				bool empty = tileset.at(num)->isEmpty();
+				
+				tiles_.push_back(TileObj{ tex, texRect, pitch, type, empty, sf::Vector2f{(float)(x * texRect.size.x),(float)(y * texRect.size.y)} });
+				//(sf::Vector2f)aTile->getTexRectSize(), aTile->getTextureID(), (sf::Vector2f)aTile->getTexPos(), aTile->getPitch(), aTile->isVisible(), aTile->getType());
+			}
 		}
-	}
-	for (int y = 0; y < rows; y++)
-	{
-		for (int x = 0; x < cols; x++)
+		/*for (int y = 0; y < rows; y++)
 		{
-			tiles_[y * cols + x].setPos({ (float)x * size_.x, (float)y * size_.y });
-			
-		}
-	}
+			for (int x = 0; x < cols; x++)
+			{
+				tiles_[y * cols + x].SetPosition({ (float)x * size_.x, (float)y * size_.y });
+
+			}
+		}*/
+	
 }
 
-std::vector<Tile> Tilemap::getTiles()
+std::vector<TileObj> Tilemap::getTiles()
 {
 	return tiles_;
 }
@@ -87,16 +98,16 @@ void Tilemap::Render(sf::RenderWindow& wnd_, float dt_)
 
 	right = (int)std::max((float)std::min(right + 1, cols_), 0.f);
 	bottom = (int)std::max((float)std::min(bottom + 1, rows_), 0.f);
-	
+
 
 	for (int y = (int)top; y < bottom; y++)
 	{
-		for (int x  = (int)left; x < right; x++)
-		{ 
+		for (int x = (int)left; x < right; x++)
+		{
 			int i = y * cols_ + x;
 			if (i >= tiles_.size())
 				continue;
-			wnd_.draw(*tiles_[i].sprite());
+			tiles_[i].render(wnd_);
 		}
 	}
 }

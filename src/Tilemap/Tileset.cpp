@@ -1,43 +1,36 @@
 #include "Tileset.h"
 
-void Tileset::AddTile(std::unique_ptr<Tile> tile)
+void Tileset::AddTile(std::unique_ptr<TileObj> tile_)
 {
-	auto& t = tiles_.emplace_back(std::make_unique<Tile>( (sf::Vector2f)tile->getTexRectSize(), tile->getTextureID(), (sf::Vector2f)tile->getTexPos(), tile->getPitch() , tile->isVisible(), tile->getType()));
-	t->setVisible(tile->isVisible());
-	t->setType(tile->getType());
-	t->setCurrID("Tileset");
-
+	m_pitch = tile_->getPitch();
+	auto& t = tiles_.emplace_back(std::make_unique<TileObj>(tile_->getTextureID(), sf::IntRect{ (sf::Vector2i)tile_->getTexRectPos(), tile_->getTexRectSize() }, tile_->getPitch(), tile_->getType(), tile_->isEmpty(), tile_->GetPosition()));
 }
 
-void Tileset::AddTile(sf::Vector2f texRectSize, Cfg::Textures texID, sf::Vector2f startPos, int pitch, bool visible_, int type_)
+void Tileset::AddTile(Cfg::Textures tex_, sf::IntRect texRect_, int pitch_, TileType type_, bool empty_, sf::Vector2f pos_)
 {
-	auto& t = tiles_.emplace_back(std::make_unique<Tile>(sf::Vector2f{ texRectSize }, texID, startPos, pitch, visible_, type_));
-	t->setVisible(visible_);
-	t->setType(type_);
-	t->setCurrID("Tileset");
+	m_pitch = pitch_;
+	auto& t = tiles_.emplace_back(std::make_unique<TileObj>(tex_,texRect_,pitch_,type_,empty_,pos_));
 }
 
-std::vector<std::unique_ptr<Tile>>& Tileset::getTiles()
+std::vector<std::unique_ptr<TileObj>>& Tileset::getTiles()
 {
 	return tiles_;
 }
 
-std::unique_ptr<Tile> Tileset::copyTile(int index)
+std::unique_ptr<TileObj> Tileset::copyTile(int index)
 {
 	auto& tile = tiles_.at(index);
-	sf::Vector2i texRectSize = sf::Vector2i{ (int)tiles_[index]->getTW(), (int)tiles_[index]->getTH() };
+	sf::Vector2i texRectPos = (sf::Vector2i)tile->getTexRectPos();
+	sf::Vector2i texRectSize = (sf::Vector2i)tile->getTexRectSize();
+	tile->SetSize((sf::Vector2f)tile->getTexRectSize());
 	Cfg::Textures texID = tile->getTextureID();
 	sf::Vector2i startPos = tile->getTexPos();
 	int pitch = tile->getPitch();
 
-	sf::Vector2f pos = tile->getPos();
+	sf::Vector2f pos = tile->GetPosition();
 
-	std::unique_ptr<Tile> aTile = std::make_unique<Tile>((sf::Vector2f)texRectSize, texID, (sf::Vector2f)startPos, pitch, tile->isVisible(), tile->getType());
-	aTile->setPos(pos);
-	aTile->setVisible((tile->getType() == 0 || tile->getType() == 3) ? false : true);
-	aTile->setType(tile->getType());
-	aTile->setCurrID("Tileset");
-
+	std::unique_ptr<TileObj> aTile = std::make_unique<TileObj>(texID, sf::IntRect{ texRectPos, texRectSize }, pitch, tile->getType(), tile->isEmpty(), pos);
+	aTile->SetSize((sf::Vector2f)tile->getTexRectSize());
 	return std::move(aTile);
 }
 

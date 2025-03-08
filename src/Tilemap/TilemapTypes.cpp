@@ -3,17 +3,14 @@
 
 TMAP::TMAP()
 {
-    std::cout << "\nTMAP being created" << std::endl;
 }
 
 TMAP::~TMAP()
 {
-    std::cout << "\nTMAP being destroyed" << std::endl;
 }
 
 TMAP::TMAP(const TMAP& other)
 {
-    std::cout << "\nTMAP being copied" << std::endl;
 
     this->cols = other.cols;
     this->rows = other.rows;
@@ -31,7 +28,6 @@ TMAP::TMAP(const TMAP& other)
 
 TMAP& TMAP::operator=(const TMAP& other)
 {
-    std::cout << "\nTMAP being copy assigned" << std::endl;
 
     this->cols = other.cols;
     this->rows = other.rows;
@@ -52,7 +48,6 @@ TMAP& TMAP::operator=(const TMAP& other)
 
 TMAP::TMAP(TMAP&& o)
 {
-    std::cout << "\nTMAP being moved" << std::endl;
 
     this->cols = o.cols;
     this->rows = o.rows;
@@ -71,7 +66,6 @@ TMAP::TMAP(TMAP&& o)
 
 TMAP& TMAP::operator=(TMAP&& o)
 {
-    std::cout << "\nTMAP being move assigned" << std::endl;
 
     this->cols = o.cols;
     this->rows = o.rows;
@@ -96,19 +90,17 @@ TMAP& TMAP::operator=(TMAP&& o)
 
 TSET::TSET()
 {
-    std::cout << "\nTSET being created" << std::endl;
+
 
 }
 
 TSET::~TSET()
 {
-    std::cout << "\nTSET being destroyed" << std::endl;
   
 }
 
 TSET::TSET(const TSET& other)
 {
-    std::cout << "\nTSET being copied" << std::endl;
 
     this->cols = other.cols;
     this->rows = other.rows;
@@ -126,7 +118,6 @@ TSET::TSET(const TSET& other)
 
 TSET& TSET::operator=(const TSET& other)
 {
-    std::cout << "\nTSET being copy assigned" << std::endl;
 
     this->cols = other.cols;
     this->rows = other.rows;
@@ -147,7 +138,6 @@ TSET& TSET::operator=(const TSET& other)
 
 TSET::TSET(TSET&& o)
 {
-    std::cout << "\nTSET being moved" << std::endl;
 
     this->cols = o.cols;
     this->rows = o.rows;
@@ -167,7 +157,6 @@ TSET::TSET(TSET&& o)
 
 TSET& TSET::operator=(TSET&& o)
 {
-    std::cout << "\nTSET being move assigned" << std::endl;
 
     this->cols = o.cols;
     this->rows = o.rows;
@@ -182,32 +171,28 @@ TSET& TSET::operator=(TSET&& o)
             this->tileDataType.push_back(o.tileDataType[y * o.cols + x]);
         }
     }
-  
-
-
-    // TODO: insert return statement here
+     
     return *this;
 }
 
-
-
-
-TSET getTilesetData(LevelName level)
+TSET NEWgetTilesetData(LevelName level)
 {
-    TSET tmp{};
 
 
+    TSET tmp;
+    
     switch (level)
     {
     case LevelName::Intro:
     {
+      
         tmp.texID = Cfg::Textures::Tileset1;
         tmp.cols = 16;
         tmp.rows = 17;
         tmp.tw = 50;
         tmp.th = 50;
         tmp.tileDataType.clear();
-        tmp.tileDataType =  std::vector<int>{
+        tmp.tileDataType = std::vector<int>{
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -225,7 +210,7 @@ TSET getTilesetData(LevelName level)
                 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            };
+        };
     }
     break;
     default:
@@ -254,7 +239,7 @@ TSET getTilesetData(LevelName level)
                 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            };
+        };
     }
     break;
     }
@@ -262,10 +247,7 @@ TSET getTilesetData(LevelName level)
     return tmp;
 }
 
-
-
-
-TMAP getLevelData(LevelName level)
+TMAP NEWgetLevelData(LevelName level)
 {
     TMAP tmp{};
 
@@ -310,7 +292,7 @@ TMAP getLevelData(LevelName level)
                 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268,
                 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268,
                 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268, 268
-            };
+        };
 
 
 
@@ -354,7 +336,7 @@ TMAP getLevelData(LevelName level)
                 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
                 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
                 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24
-            };
+        };
 
     }
     break;
@@ -362,4 +344,5 @@ TMAP getLevelData(LevelName level)
 
     return tmp;
 }
+
 
