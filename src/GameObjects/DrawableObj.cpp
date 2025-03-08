@@ -130,6 +130,7 @@ DrawableObj& DrawableObj::operator=(const DrawableObj& o)
 void DrawableObj::update(float dt_)
 {
 	// if animated, animate here
+	GObj::tick(dt_);
 }
 
 void DrawableObj::render(sf::RenderWindow& wnd_)
@@ -198,4 +199,14 @@ sf::Vector2f DrawableObj::getTexRectPos()
 {
 	if (m_anim == nullptr) { return sf::Vector2f(0, 0); }
 	return (sf::Vector2f)m_anim->at(m_currentFrame).position;
+}
+
+void DrawableObj::setFrameOffset(std::string animName_, sf::Vector2f offset_)
+{
+	m_frameOffset[animName_] = offset_;
+}
+
+sf::Vector2f DrawableObj::getFrameOffset()
+{
+	return m_frameOffset[m_animName];
 }

@@ -60,6 +60,11 @@ void Tilemap::SetupTilemap(std::vector<int> tilesetTileNums, int cols, int rows,
 				
 				tiles_.push_back(TileObj{ tex, texRect, pitch, type, empty, sf::Vector2f{(float)(x * texRect.size.x),(float)(y * texRect.size.y)} });
 				//(sf::Vector2f)aTile->getTexRectSize(), aTile->getTextureID(), (sf::Vector2f)aTile->getTexPos(), aTile->getPitch(), aTile->isVisible(), aTile->getType());
+
+				if (tiles_.back().isSolid())
+				{
+					visibleTiles_.push_back(&tiles_[tiles_.size() - 1]);
+				}
 			}
 		}
 		/*for (int y = 0; y < rows; y++)
@@ -73,9 +78,9 @@ void Tilemap::SetupTilemap(std::vector<int> tilesetTileNums, int cols, int rows,
 	
 }
 
-std::vector<TileObj> Tilemap::getTiles()
+std::vector<TileObj*>& Tilemap::getTiles()
 {
-	return tiles_;
+	return visibleTiles_;
 }
 
 void Tilemap::Render(sf::RenderWindow& wnd_, float dt_)

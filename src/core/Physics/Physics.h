@@ -1,11 +1,7 @@
 #pragma once
 
-#include <GameObjects/GameObject.h>
-#include <GameObjects/DynamicObject.h>
-#include <GameObjects/StaticObject.h>
 #include <algorithm> // for std::max, std::min, and std::swap
-#include <GameObjects/Player/Player.h>
-#include <Tilemap/Tile.h>
+#include <GameObjects/Player/PlayerObj.h>
 
 class Physics
 {
@@ -14,40 +10,30 @@ public:
     //======================================================
     //  Basic AABB collision check between two GameObjects
     //======================================================
-    static bool checkCollision(GameObject* objA, GameObject* objB, float& length)
+    static bool checkCollision(PlayerObj* objA, GObj* objB, float& length)
     {
         // We assume objA is a DynamicObject and objB is a StaticObject
         // (or we can handle other combos in the future if we want)
-        auto* dyno = dynamic_cast<DynamicObject*>(objA);
-        auto* stat = dynamic_cast<StaticObject*>(objB);
-        if (!dyno || !stat) return false;
+        //auto* dyno = dynamic_cast<DynamicObject*>(objA);
+        //auto* stat = dynamic_cast<StaticObject*>(objB);
+        //if (!dyno || !stat) return false;
 
-        float leftA = dyno->posx;
-        float rightA = dyno->posx + dyno->getBBox().width;
-        float topA = dyno->posy;
-        float bottomA = dyno->posy + dyno->getBBox().height;
+        float leftA = objA->GetPosition().x;
+        float rightA = objA->GetPosition().x + objA->GetSize().x;
+        float topA = objA->GetPosition().y;
+        float bottomA = objA->GetPosition().y + objA->GetSize().y;
         float leftB, rightB, topB, bottomB;
-        if (dynamic_cast<Tile*>(stat) != nullptr)
-        {
-            auto* t = dynamic_cast<Tile*>(stat);
-             leftB = t->x();
-             rightB = t->x() + t->w();
-             topB = t->y();
-            bottomB = t->y() + t->h();
-        }
-        else
-        {
         
-        leftB = stat->posx;
-        rightB = stat->posx + stat->getBBox().width;
-        topB = stat->posy;
-        bottomB = stat->posy + stat->getBBox().height;
-    }
+        leftB = objB->GetPosition().x;
+        rightB = objB->GetPosition().x + objB->GetSize().x;
+        topB = objB->GetPosition().y;
+        bottomB = objB->GetPosition().y + objB->GetSize().y;
+    
         if (leftA < rightB && rightA > leftB && topA < bottomB && bottomA > topB)
         {
             // in collision, figure out length from center to center
-            sf::Vector2f centerToCenter = { (leftB + (stat->getBBox().width / 2.f)) - (leftA + (dyno->getBBox().width / 2.f)),
-                                                                 (topB + (stat->getBBox().height / 2.f)) - (topA + (dyno->getBBox().height / 2.f)) };
+            sf::Vector2f centerToCenter = { (leftB + (objB->GetSize().x / 2.f)) - (leftA + (objA->GetSize().x / 2.f)),
+                                                                 (topB + (objB->GetSize().y / 2.f)) - (topA + (objA->GetSize().y / 2.f)) };
 
             length = sqrt(centerToCenter.x * centerToCenter.x + centerToCenter.y * centerToCenter.y);
         }
@@ -192,7 +178,7 @@ public:
     //  Example of a simple collision resolution 
     //  (dynamic vs static)
     //======================================================
-    static void resolveCollision(DynamicObject* dynamicObj, StaticObject* staticObj)
+    static void resolveCollision(PlayerObj* dynamicObj, GObj* staticObj)
     {
         float len;
         if (!dynamicObj || !staticObj) { return; }
@@ -200,28 +186,16 @@ public:
         if (!checkCollision(dynamicObj, staticObj, len))
             return;
 
-        float leftD = dynamicObj->posx;
-        float rightD = dynamicObj->posx + dynamicObj->getBBox().width;
-        float topD = dynamicObj->posy;
-        float bottomD = dynamicObj->posy + dynamicObj->getBBox().height;
+        float leftD = dynamicObj->GetPosition().x;
+        float rightD = dynamicObj->GetPosition().x + dynamicObj->GetSize().x;
+        float topD = dynamicObj->GetPosition().y;
+        float bottomD = dynamicObj->GetPosition().y + dynamicObj->GetSize().y;
         float leftS, rightS, topS, bottomS;
-        if (dynamic_cast<Tile*>(staticObj) != nullptr)
-        {
-            auto* t = dynamic_cast<Tile*>(staticObj);
-            leftS = t->x();
-            rightS = t->x() + t->w();
-            topS = t->y();
-            bottomS = t->y() + t->h();
-        }
-        else
-        {
-
-            leftS = staticObj->posx;
-            rightS = staticObj->posx + staticObj->getBBox().width;
-            topS = staticObj->posy;
-            bottomS = staticObj->posy + staticObj->getBBox().height;
-        }
-
+            leftS = staticObj->GetPosition().x;
+            rightS = staticObj->GetPosition().x + staticObj->GetSize().x;
+            topS = staticObj->GetPosition().y;
+            bottomS = staticObj->GetPosition().y + staticObj->GetSize().y;
+     
         float overlapLeft = rightD - leftS;
         float overlapRight = rightS - leftD;
         float overlapTop = bottomD - topS;
@@ -248,51 +222,48 @@ public:
         }
 
         // Adjust position along the axis of smallest overlap
-        float newX = dynamicObj->posx;
-        float newY = dynamicObj->posy;
+        float newX = dynamicObj->GetPosition().x;
+        float newY = dynamicObj->GetPosition().y;
 
         if (axis == "Left")
         {
             newX -= minOverlap;
-            //dynamicObj->velocity = { dynamicObj->velocity.x, 0.f };
-            dynamicObj->velocity = { 0.f, dynamicObj->velocity.y };
+            //dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
+            dynamicObj->SetVelocity({ 0.f, dynamicObj->GetVelocity().y });
 
         }
         else if (axis == "Right")
         {
             newX += minOverlap;
-            dynamicObj->velocity = {0.f,  dynamicObj->velocity.y };
-//            dynamicObj->velocity = { dynamicObj->velocity.x, 0.f };
+            dynamicObj->SetVelocity({0.f,  dynamicObj->GetVelocity().y });
+//            dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
 
         }
         else if (axis == "Top")
         {
             newY -= minOverlap;
-   //         dynamicObj->velocity = { dynamicObj->velocity.x, 0.f };
-            dynamicObj->velocity = { dynamicObj->velocity.x, 0.f };
+   //         dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
+            dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
 
-            if (dynamic_cast<Player*>(dynamicObj) != nullptr)
-            {
-                dynamic_cast<Player*>(dynamicObj)->Land();
+           dynamicObj->SetOnGround(true);
                /* setAnimation("Idle");
 
                 if (std::abs(dynamic_cast<Player*>(dynamicObj)->currVelocity().x) >= 0.01f)
                     dynamic_cast<Player*>(dynamicObj)->setAnimation("Walk");*/
 
                 //dynamic_cast<Player*>(dynamicObj)->setCanJump(true);
-            }
+            
 
         }
         else if (axis == "Bottom")
         {
             newY += minOverlap;
-      //      dynamicObj->velocity = { dynamicObj->velocity.x, 0.f };
-            dynamicObj->velocity = { dynamicObj->velocity.x, 0.f };
+      //      dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
+            dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
 
         }
 
-        dynamicObj->posx = newX;
-        dynamicObj->posy = newY;
+        dynamicObj->SetPosition({ newX, newY });
     }
 };
 

@@ -14,7 +14,7 @@
 #include <Resources/Cfg.h>
 
 
-class DrawableObj : protected GObj
+class DrawableObj : public GObj
 {
 	// Animation Parameters
 	std::vector<sf::IntRect>* m_anim{ nullptr };
@@ -85,5 +85,7 @@ public:
 	sf::Vector2f getTexRectSize();
 	Cfg::Textures getTextureID();
 	sf::Vector2f getTexRectPos();
+	void setFrameOffset(std::string animName_, sf::Vector2f offset_);
+	sf::Vector2f getFrameOffset();
 
 };

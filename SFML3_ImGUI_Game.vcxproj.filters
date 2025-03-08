@@ -45,9 +45,6 @@
     <Filter Include="Assets\Textures\Tilesets">
       <UniqueIdentifier>{df0175bc-f37d-468d-97ee-81f7ec621170}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Textures\GameObjects\Player">
-      <UniqueIdentifier>{f583ff78-c09d-46f0-bbc9-abffb0fdf1d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\core">
       <UniqueIdentifier>{5bf5b883-bffd-42e6-99b9-dc5159e62752}</UniqueIdentifier>
     </Filter>
@@ -83,6 +80,15 @@
     </Filter>
     <Filter Include="Header Files\Tilemap">
       <UniqueIdentifier>{602c6008-484e-473d-b991-868e3295a94e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\Physics">
+      <UniqueIdentifier>{fdde78df-9c3e-45e4-8640-9f34f29b54bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\Physics">
+      <UniqueIdentifier>{7ef5fcb7-9bc5-4607-8aec-cf8f75840bad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures\Player">
+      <UniqueIdentifier>{f583ff78-c09d-46f0-bbc9-abffb0fdf1d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,8 +131,11 @@
     <ClCompile Include="src\GameObjects\DrawableObj.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Physics\Physics.cpp">
+      <Filter>Source Files\core\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameObjects\Player\PlayerObj.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +196,9 @@
     <ClInclude Include="src\GameObjects\Player\PlayerObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\Physics\Physics.h">
+      <Filter>Header Files\core\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Crusty.ttf">
@@ -204,7 +216,7 @@
       <Filter>Assets\Textures</Filter>
     </Image>
     <Image Include="Assets\Textures\GameObjects\Player\PlayerAtlas.png">
-      <Filter>Assets\Textures\GameObjects\Player</Filter>
+      <Filter>Assets\Textures\Player</Filter>
     </Image>
     <Image Include="Assets\Textures\Backgrounds\bgSpace.png">
       <Filter>Assets\Textures\Backgrounds</Filter>

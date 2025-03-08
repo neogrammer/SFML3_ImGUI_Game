@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <GameObjects/Player/PlayerObj.h>
-
+#include <Physics/Physics.h>
 
 int main(int argc, char* argv[])
 {
@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
     bool downPressed{ false };
     bool leftPressed{ false };
     bool rightPressed{ false };
+
     // main view
     sf::View vw = window.getDefaultView();
     while (window.isOpen())
@@ -83,12 +84,12 @@ int main(int argc, char* argv[])
         if (rightPressed)
         {
             // store players pixel position mapped from coords, and use that to map to coords when moving the player  after the map , or if moving just the player, dont worry about this
-            if (vw.getCenter().x < tmap1.Cols() * tmap1.TW() - (vw.getSize().x / 2.f))
+            if (vw.getCenter().x < tmap1.Cols() * tmap1.TW() - (vw.getSize().x / 2.f) && window.mapCoordsToPixel(player.GetPosition()).x >= window.getSize().x * 0.65f)
                 vw.setCenter({ vw.getCenter().x + (300.f * dt.asSeconds()), vw.getCenter().y}); // and put player at same pixel in the window as was before the move;         
         }
         if (leftPressed)
         {
-            if (vw.getCenter().x - (300.f * dt.asSeconds()) > vw.getSize().x / 2)
+            if (vw.getCenter().x - (300.f * dt.asSeconds()) > (vw.getSize().x / 2.f) && window.mapCoordsToPixel(player.GetPosition()).x <= window.getSize().x * 0.35f)
                 vw.setCenter({ vw.getCenter().x + (-300.f * dt.asSeconds()), vw.getCenter().y });   
         }
         if (upPressed)
@@ -103,7 +104,23 @@ int main(int argc, char* argv[])
         }
 
         player.update(dt.asSeconds());
-     
+        // update other game objects now
+
+        // now ticked, check collisions and adjust accordingly
+        for (auto& tile : tmap1.getTiles())
+        {
+            float length;
+            if (Physics::rectVrect(player.GetPosition(), player.GetSize(), tile->GetPosition(), tile->GetSize()))
+            {
+                Physics::resolveCollision(&player, dynamic_cast<GObj*>(tile));
+            }
+        }
+
+        // finalize animations
+
+
+
+        // render frame
 
         // ImGui rendering
         soWhat = ImGui::SFML::UpdateFontTexture(); // important call: updates font texture
