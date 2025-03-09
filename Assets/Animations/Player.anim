@@ -1,43 +1,40 @@
- 6
- Idle
- Right
- 44 43
- 130 160
- 3
- 0 160
- 17
- Idle
- Left
- 44 43
- 130 160
- 3
- 0 2240
- 17
- Moving
- Right
- 44 43
- 130 160
- 10
- 260 320
- 17
- Moving
- Left
- 44 43
- 130 160
- 10
- 260 2400
-17
- StartedMoving
- Right
- 44 43
- 130 160
- 2
- 0 320
- 17
- StartedMoving
- Left
- 44 43
- 130 160
- 2
- 0 2400
-17
+ 38
+ Idle Right 44 43 130 160 3 0 160 17
+ Idle Left 44 43 130 160 3 0 2240 17
+ Moving Right 44 43 130 160 10 260 320 17
+ Moving Left 44 43 130 160 10 260 2400 17
+ StartedMoving Right 44 43 130 160 2 0 320 17
+ StartedMoving Left 44 43 130 160 2 0 2400 17 
+ StartedShooting Right 44 43 130 160 3 1040 160 17
+ StartedShooting Left 44 43 130 160 3 1040 2240 17
+ Shooting Right 44 43 130 160 1 1560 160 17 
+ Shooting Left 44 43 130 160 1 1560 2240 17
+StartedJumping Right 44 43 130 160 3 0 800 17 
+StartedJumping Left 44 43 130 160 3 0 2880 17
+Rising Right 44 43 130 160 1 390 800 17 
+Rising Left 44 43 130 160 1 390 2880 17
+AtJumpTop Right 44 43 130 160 2 520 800 17
+AtJumpTop Left 44 43 130 160 2 520 2880 17
+Falling Right 44 43 130 160 2 780 800 17 
+Falling Left 44 43 130 160 2 780 2880 17
+Landing Right 44 43 130 160 3 1040 800 17
+Landing Left 44 43 130 160 3 1040 2880 17
+StartedMovingAndShooting Right 44 43 130 160 2 0 480 17
+StartedMovingAndShooting Left 44 43 130 160 2 0 2560 17 
+MovingAndShooting Right 44 43 130 160 10 260 480 17
+MovingAndShooting Left 44 43 130 160 10 260 2560 17
+StartedJumpingAndShooting Right 44 43 130 160 3 0 960 17 
+StartedJumpingAndShooting Left 44 43 130 160 3 0 3040 17
+RisingAndShooting Right 44 43 130 160 1 390 960 17 
+RisingAndShooting Left 44 43 130 160 1 390 3040 17
+AtJumpTopAndShooting Right 44 43 130 160 2 520 960 17
+AtJumpTopAndShooting Left 44 43 130 160 2 520 3040 17
+FallingAndShooting Right 44 43 130 160 2 780 960 17 
+FallingAndShooting Left 44 43 130 160 2 780 3040 17
+LandingAndShooting Right 44 43 130 160 3 1040 960 17
+LandingAndShooting Left 44 43 130 160 3 1040 3040 17
+Hit Right 44 43 130 160 7 1300 1600 17
+Hit Left 44 43 130 160 7 1300 3680 17
+Dead Right 44 43 130 160 5 1300 1760 17
+Dead Left 44 43 130 160 5 1300 3840 17
+ 
