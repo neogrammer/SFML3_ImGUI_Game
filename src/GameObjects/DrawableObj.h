@@ -16,6 +16,19 @@
 
 class DrawableObj : public GObj
 {
+	friend class AnimHandler;
+protected:
+	bool m_playing{ true };
+	bool m_loopWaits{ false };
+	bool m_looping{ true };
+
+	bool m_uniDirectional{ false };
+	
+
+	std::unordered_map<std::string, float> m_startDelays{};
+	std::unordered_map<std::string, float> m_loopDelays{};
+	std::unordered_map<std::string, float> m_frameDelays{};
+
 	// Animation Parameters
 	std::vector<sf::IntRect>* m_anim{ nullptr };
 	std::string m_animName{ "None" };
@@ -30,10 +43,13 @@ class DrawableObj : public GObj
 	/// <summary>
 	/// position and size of animation in the sprite atlas,
 	/// </summary>
-	std::unordered_map<std::string, std::vector<sf::IntRect>> m_texFrames{};
+	std::unordered_map<std::string, std::vector<sf::IntRect>> m_texFramesRight{};
+	std::unordered_map<std::string, std::vector<sf::IntRect>> m_texFramesLeft{};
+	std::unordered_map<std::string, std::vector<sf::IntRect>> m_texFramesUni{};
+	
 protected:
 	void initialize(const std::string& filepath_, sf::Vector2f size_ = { 50.f,50.f }, Cfg::Textures tex_ = Cfg::Textures::Invariant, sf::Vector2f pos_ = { 0.f,0.f }, sf::Vector2f vel_ = sf::Vector2f{ 0.f,0.f });
-	void initializeAsTile(sf::IntRect rect_ = { {0,0}, {50,50} }, Cfg::Textures tex_ = Cfg::Textures::Invariant, sf::Vector2f pos_ = { 0.f,0.f });
+	void initializeAsTile(sf::IntRect rect_, Cfg::Textures tex_ = Cfg::Textures::Invariant, sf::Vector2f pos_ = { 0.f,0.f });
 
 public:
 	DrawableObj();
@@ -43,14 +59,17 @@ public:
 	DrawableObj& operator=(const DrawableObj&);
 	DrawableObj(DrawableObj&&) = default;
 	DrawableObj& operator=(DrawableObj&&)=default;
+	bool m_facingRight{ true };
+
 
 
 	friend bool operator==(DrawableObj& lhs_, DrawableObj& rhs_);
 
-	virtual void update(float dt_) override;
+	void update(float dt_) override;
 	virtual void render(sf::RenderWindow& wnd_);
 
 	void ChangeAnim(const std::string& animName);
+	void animate();
 
 	inline size_t ID() const { return GObj::ID(); }
 	void SetSize(const sf::Vector2f& size_);

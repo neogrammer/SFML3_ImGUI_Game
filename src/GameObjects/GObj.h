@@ -11,6 +11,7 @@
 /// </summary>
 class GObj
 {
+
 	static size_t totalGameObjects;
 
     size_t m_id{ ++totalGameObjects };

@@ -90,6 +90,15 @@
     <Filter Include="Assets\Textures\Player">
       <UniqueIdentifier>{f583ff78-c09d-46f0-bbc9-abffb0fdf1d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FSM">
+      <UniqueIdentifier>{db1f80f6-502b-4e04-8f7d-a08f05ac3b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FSM">
+      <UniqueIdentifier>{b6fac781-100a-4653-a22f-94c4169c2a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{10518e38-6879-4709-949f-13249ecb8602}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -136,6 +145,12 @@
     </ClCompile>
     <ClCompile Include="src\GameObjects\Player\PlayerObj.cpp">
       <Filter>Source Files\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FSM\FSMEvent.cpp">
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation\AnimHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,11 +208,38 @@
     <ClInclude Include="src\Tilemap\TileObj.h">
       <Filter>Header Files\Tilemap</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObjects\Player\PlayerObj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\Physics\Physics.h">
       <Filter>Header Files\core\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\DuckFold.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\Events.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\FSM.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\FSMEvent.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\IgnoreUnknownEvent.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\PlayerAnimFSM.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\PlayerAnimStates.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Player\PlayerObj.h">
+      <Filter>Header Files\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation\AnimHandler.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event\EventTypes.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
