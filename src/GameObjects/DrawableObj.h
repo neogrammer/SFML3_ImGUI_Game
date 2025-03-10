@@ -75,6 +75,11 @@ public:
 	inline sf::Vector2f GetSize() const {
 		return GObj::GetSize();
 	};
+
+	inline int GetCurrentFrame()
+	{
+		return (int)m_currentFrame;
+	};
 	/// <summary>
 	/// Adjust world coordinates a set amount (amount should include the game's frame time 
 	/// </summary>

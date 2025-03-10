@@ -49,3 +49,20 @@ sf::Music& ResourceManager<sf::Music,IDENTIFIER>::get(const IDENTIFIER& id) cons
     return *_map.at(id);
 }
 
+template<typename IDENTIFIER>
+template<typename ... Args>
+void ResourceManager<sf::Font,IDENTIFIER>::load(const IDENTIFIER& id,Args&& ... args)
+{
+    std::unique_ptr<sf::Font> ptr(new sf::Music);
+
+    if(not ptr->openFromFile(std::forward<Args>(args)...))
+        throw std::runtime_error("Impossible to load file");
+    _map.emplace(id,std::move(ptr));
+};
+
+template<typename IDENTIFIER>
+sf::Font& ResourceManager<sf::Font,IDENTIFIER>::get(const IDENTIFIER& id) const
+{
+    return *_map.at(id);
+}
+

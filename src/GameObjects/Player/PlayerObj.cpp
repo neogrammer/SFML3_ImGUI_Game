@@ -306,8 +306,11 @@ void PlayerObj::render(sf::RenderWindow& wnd_)
 	if (m_animName != fsmPlayer.getStateName())
 		ChangeAnim(fsmPlayer.getStateName());
 
+
 	//animHandler.render(wnd_);
 	DrawableObj::render(wnd_);
+
+
 }
 
 sf::Vector2i PlayerObj::getTexRectSize()

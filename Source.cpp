@@ -11,6 +11,7 @@
 #include <GameObjects/Player/PlayerObj.h>
 #include <Physics/Physics.h>
 #include <GameObjects/StandardEnemy/StandardEnemy.h>
+#include <sstream>
 
 int main(int argc, char* argv[])
 {
@@ -36,6 +37,7 @@ int main(int argc, char* argv[])
    IO.Fonts->Clear(); // clear fonts if you loaded some before (even if only default one was loaded)
     // IO.Fonts->AddFontDefault(); // this will load default font as well
     IO.Fonts->AddFontFromFileTTF("Assets\\Fonts\\Crusty.ttf", 18.f);
+    sf::Font font2{ "Assets\\Fonts\\frisky_puppy.ttf" };
 
 
     // run the program as long as the window is open
@@ -45,7 +47,16 @@ int main(int argc, char* argv[])
     bool downPressed{ false };
     bool leftPressed{ false };
     bool rightPressed{ false };
-
+    sf::Text mytext{ font2 };
+    sf::Vector2i nowPos = {};
+    sf::Vector2i nowOff = {};
+    sf::Vector2i nowSize = {};
+    sf::Vector2i nowVel = {};
+    sf::Vector2i nowTRSize = {};
+    mytext.setString("");
+    mytext.setFillColor(sf::Color::Red);
+    mytext.setCharacterSize(24u);
+    mytext.setPosition({ 10.f,10.f });
     // main view
     sf::View vw = window.getDefaultView();
     while (window.isOpen())
@@ -177,6 +188,10 @@ int main(int argc, char* argv[])
 
         // finalize animations
 
+      //  static std::string strng = {""};
+
+
+    //    const char* str = strng.c_str();
 
 
         // render frame
@@ -186,6 +201,7 @@ int main(int argc, char* argv[])
         ImGui::SFML::Update(window, dt);
         ImGui::Begin("Hello, world!");
         ImGui::Button("Look at this pretty button");
+ //       ImGui::Text(str);
         ImGui::End();
 
         // set main game view and clear the window
@@ -195,10 +211,53 @@ int main(int argc, char* argv[])
         tmap1.Render(window, dt.asSeconds());
         enemy.render(window);
         player.render(window);
+
+
+        if (player.getFsm().getStateName() == "Shooting")
+        {
+            nowOff = (sf::Vector2i)player.getFrameOffset();
+            nowPos = (sf::Vector2i)player.GetPosition();
+            nowVel = (sf::Vector2i)player.GetVelocity();
+            nowSize = (sf::Vector2i)player.GetSize();
+            nowTRSize = player.getTexRectSize();
+
+            std::string oss = "Player OutPut at #1 frame index:  ";
+            oss.append("\n");
+            size_t sz = (size_t)((((nowPos.x < 10) ? 1 : (nowPos.x < 100) ? 2 : 3))) * sizeof(char);
+            char buffer[1024];
+            _itoa_s(nowPos.x, buffer, sz + 1, 10);
+            std::string tmp = buffer;
+
+            oss.append("World: x = " + std::to_string(nowPos.x) + ", y= " + std::to_string(nowPos.y));
+            oss.append("\n");
+            oss.append("TexOffsets: x = " + std::to_string(nowOff.x) + ", y = " + std::to_string(nowOff.y));
+            oss.append("\n");
+            oss.append("(Size(World) : x = " + std::to_string(nowSize.x) + ", y= " + std::to_string(nowSize.y));
+            oss.append("\n");
+            oss.append("Velocity*dt: x= " + std::to_string(nowVel.x) + ", y= " + std::to_string(nowVel.y));
+            oss.append("\n");
+            oss.append("Size(TexRect): x= " + std::to_string(nowTRSize.x) + ", y= " + std::to_string(nowTRSize.y));
+
+
+
+           // strng = oss.str();
+            
+            mytext.setString(oss);
+        }
+        window.draw(mytext);
+
+
         // and last but not lease ImGui
         ImGui::SFML::Render(window);
         // swap chain buffer pointer swap
                 window.display();
+                
+
+            
+
+
+                    
+
     }
 
     // cleanup sfml
