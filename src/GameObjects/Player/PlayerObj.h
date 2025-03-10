@@ -12,6 +12,7 @@ class PlayerObj : public DrawableObj
 	const int GRAVITY{ 3200 };
 	bool rising{ false };
 	FSM_Player fsmPlayer;
+	bool leftPressed{ false }, rightPressed{ false }, upPressed{ false }, downPressed{ false };
 
 
 	AnimHandler animHandler;
@@ -26,6 +27,9 @@ public:
 	PlayerObj& operator=(PlayerObj&&)=delete;
 
 	void handleInput();
+	void UpdateDPad(bool* pressed);
+
+
 
 	FSM_Player& getFsm();
 

@@ -29,25 +29,25 @@ PlayerObj::PlayerObj() : DrawableObj{}
 
 		m_frameDelays["StartedMovingAndShooting"] = 0.08f;
 		m_loopDelays["StartedMovingAndShooting"] = 0.f;
-		m_frameDelays["StartedJump"] = 0.08f;
+		m_frameDelays["StartedJump"] = 0.6f;
 		m_loopDelays["StartedJump"] = 10.f;
-		m_frameDelays["Rising"] = 0.03f;
+		m_frameDelays["Rising"] = 0.6f;
 		m_loopDelays["Rising"] = 10.f;
-		m_frameDelays["AtJumpTop"] = 0.03f;
+		m_frameDelays["AtJumpTop"] = 0.6f;
 		m_loopDelays["AtJumpTop"] = 10.f;
-		m_frameDelays["Falling"] = 0.03f;
+		m_frameDelays["Falling"] = 0.6f;
 		m_loopDelays["Falling"] = 10.f;
-		m_frameDelays["Landing"] = 0.08f;
+		m_frameDelays["Landing"] = 0.6f;
 		m_loopDelays["Landing"] = 10.f;
-		m_frameDelays["StartedJumpAndShooting"] = 0.08f;
+		m_frameDelays["StartedJumpAndShooting"] = 0.6f;
 		m_loopDelays["StartedJumpAndShooting"] = 10.f;
-		m_frameDelays["RisingAndShooting"] = 0.03f;
-		m_loopDelays["RisingAndshooting"] = 10.f;
-		m_frameDelays["AtJumpTopAndShooting"] = 0.08f;
+		m_frameDelays["RisingAndShooting"] = 0.6f;
+		m_loopDelays["RisingAndShooting"] = 10.f;
+		m_frameDelays["AtJumpTopAndShooting"] = 0.6f;
 		m_loopDelays["AtJumpTopAndShooting"] = 10.f;
-		m_frameDelays["FallingAndShooting"] = 0.03f;
+		m_frameDelays["FallingAndShooting"] = 0.6f;
 		m_loopDelays["FallingAndShooting"] = 10.f;
-		m_frameDelays["LandingAndShooting"] = 0.03f;
+		m_frameDelays["LandingAndShooting"] = 0.6f;
 		m_loopDelays["LandingAndShooting"] = 10.f;
 
 
@@ -60,6 +60,14 @@ PlayerObj::~PlayerObj()
 
 void PlayerObj::handleInput()
 {
+}
+
+void PlayerObj::UpdateDPad(bool* pressed)
+{
+	upPressed = pressed[0];
+	downPressed = pressed[1];
+	leftPressed = pressed[2];
+	rightPressed = pressed[3];
 }
 
 FSM_Player& PlayerObj::getFsm()
@@ -78,7 +86,7 @@ void PlayerObj::update(float dt_)
 
 	auto* drO = dynamic_cast<DrawableObj*>(this);
 
-	if (((!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))))
+	if ((!leftPressed && !rightPressed) || (leftPressed && rightPressed))
 	{
 		SetVelocity({ 0.f,GetVelocity().y });
 		if (m_animName != "Idle")
@@ -89,7 +97,7 @@ void PlayerObj::update(float dt_)
 	}
 	else
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+		if (rightPressed)
 		{
 			SetVelocity({ 350.f, GetVelocity().y });
 			drO->m_facingRight = true;
@@ -102,7 +110,7 @@ void PlayerObj::update(float dt_)
 				dispatch(fsmPlayer, EventStartedMoving{});
 			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+		if (leftPressed)
 		{
 			SetVelocity({ -350.f, GetVelocity().y });
 			drO->m_facingRight = false;
@@ -151,7 +159,7 @@ void PlayerObj::update(float dt_)
 		}
 		else
 		{
-
+		     	dispatch(fsmPlayer, EventStartedShooting{});
 
 				// is shooting already and key is held down
 				shootElapsed += dt_;
@@ -174,7 +182,7 @@ void PlayerObj::update(float dt_)
 		shootElapsed = 0.f;
 		shootSetupDone = false;
 
-		if (m_animName == "Shooting")
+		if ((m_animName == "Shooting") || (m_animName == "StartedJumpAndShooting") || (m_animName == "RisingAndShooting") || (m_animName == "AtJumpTopAndShooting") || (m_animName == "FallingAndShooting") || (m_animName == "LandingAndShooting") || (m_animName == "MovingAndShooting"))
 		{
 			shootWaitElapsed += dt_;
 			if (shootWaitElapsed > 0.25f)

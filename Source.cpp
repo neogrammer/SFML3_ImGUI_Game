@@ -54,37 +54,80 @@ int main(int argc, char* argv[])
         {
             dt = sf::seconds(0.016f);
         }
+
+
+        static bool presses[4] = { false, };
+
         while (const std::optional event = window.pollEvent())
         {
             ImGui::SFML::ProcessEvent(window, *event);
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>())
+            {
                 window.close();
+
+            }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyReleased>())
             {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
                     window.close();
                 if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                {
                     upPressed = false;
+                    presses[0] = upPressed;
+                    player.UpdateDPad(presses);
+                }
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                {
                     downPressed = false;
+                    presses[1] = downPressed;
+                    player.UpdateDPad(presses);
+                }
+
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                {
                     leftPressed = false;
+                    presses[2] = leftPressed;
+                    player.UpdateDPad(presses);
+                }
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                {
                     rightPressed = false;
+                    presses[3] = rightPressed;
+                    player.UpdateDPad(presses);
+                }
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                {
                     upPressed = true;
+                    presses[0] = upPressed;
+                    player.UpdateDPad(presses);
+                }
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                {
                     downPressed = true;
+                    presses[1] = downPressed;
+                    player.UpdateDPad(presses);
+                }
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                {
                     leftPressed = true;
+                    presses[2] = leftPressed;
+                    player.UpdateDPad(presses);
+                }
                 else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
-                    rightPressed = true;
+                {
+                    rightPressed =true;
+                    presses[3] = rightPressed;
+                    player.UpdateDPad(presses);
+                }
             }
+
         }
+
+        
         // Move mapview accordingly
         if (rightPressed)
         {
@@ -153,7 +196,7 @@ int main(int argc, char* argv[])
         // and last but not lease ImGui
         ImGui::SFML::Render(window);
         // swap chain buffer pointer swap
-        window.display();
+                window.display();
     }
 
     // cleanup sfml
