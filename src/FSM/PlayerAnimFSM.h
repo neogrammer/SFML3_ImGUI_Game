@@ -22,7 +22,7 @@ public:
 
 	std::optional<PlayerAnimVar> On_Event(ShootingState& s, const EventStoppedShooting& e) { std::cout << "Idle" << std::endl; return IdleState{}; }
 	std::optional<PlayerAnimVar> On_Event(ShootingState& s, const EventStartedMoving& e) { std::cout << "MovingAndShooting" << std::endl; return MovingAndShootingState{}; }
-	std::optional<PlayerAnimVar> On_Event(ShootingState& s, const EventStartedJumping& e) { std::cout << "StartedJumpAndShooting" << std::endl; return StartedJumpAndShootingState{}; }
+	std::optional<PlayerAnimVar> On_Event(ShootingState& s, const EventStartedJumping& e) { std::cout << "RisingAndShooting" << std::endl; return RisingAndShootingState{}; }
 	std::optional<PlayerAnimVar> On_Event(ShootingState& s, const EventHit& e) { std::cout << "Hit" << std::endl; return HitState{}; }
 	std::optional<PlayerAnimVar> On_Event(ShootingState& s, const EventFell& e) { std::cout << "Falling" << std::endl; return FallingState{}; }
 
@@ -35,6 +35,8 @@ public:
 
 	std::optional<PlayerAnimVar> On_Event(StartedJumpState& s, const EventStartedShooting& e) { std::cout << "StartedJumpAndShooting" << std::endl; return StartedJumpAndShootingState{}; }
 	std::optional<PlayerAnimVar> On_Event(StartedJumpState& s, const EventHit& e) { std::cout << "Hit" << std::endl; return HitState{}; }
+	std::optional<PlayerAnimVar> On_Event(StartedJumpState& s, const EventJumpStartFinished& e) { std::cout << "Rising" << std::endl; return RisingState{}; }
+
 	
 
 	std::optional<PlayerAnimVar> On_Event(RisingState& s, const EventStartedShooting& e) { std::cout << "RisingAndStartedShooting" << std::endl; return RisingAndShootingState{}; }
@@ -68,6 +70,7 @@ public:
 	std::optional<PlayerAnimVar> On_Event(StartedJumpAndShootingState& s, const EventStoppedShooting& e) { std::cout << "StartedJump" << std::endl;  return StartedJumpState{}; }
 	std::optional<PlayerAnimVar> On_Event(StartedJumpAndShootingState& s, const EventJumpStartFinished& e) { std::cout << "RisingAndShooting" << std::endl;  return RisingAndShootingState{}; }
 	std::optional<PlayerAnimVar> On_Event(StartedJumpAndShootingState& s, const EventHit& e) { std::cout << "Hit" << std::endl;  return HitState{}; }
+
 
 
 	std::optional<PlayerAnimVar> On_Event(RisingAndShootingState& s, const EventStoppedShooting& e) { std::cout << "Rising" << std::endl; return RisingState{}; }
@@ -114,6 +117,11 @@ public:
 	std::optional<PlayerAnimVar> On_Event(StartedMovingAndShootingState& s, const EventStoppedShooting& e) { std::cout << "Moving" << std::endl; return MovingState{}; }
 	std::optional<PlayerAnimVar> On_Event(StartedMovingAndShootingState& s, const EventStartedJumping& e) { std::cout << "StartedJumpAndShooting" << std::endl; return StartedJumpAndShootingState{}; }
 
+	std::optional<PlayerAnimVar> On_Event(JumpingAndShootingState& s, const EventJumpStartFinished& e) { std::cout << "RisingAndShooting" << std::endl; return RisingAndShootingState{}; }
+	std::optional<PlayerAnimVar> On_Event(JumpingAndShootingState& s, const EventStoppedShooting& e) { std::cout << "Rising" << std::endl; return RisingState{}; }
+	std::optional<PlayerAnimVar> On_Event(JumpingAndShootingState& s, const EventHit& e) { std::cout << "Hit" << std::endl; return HitState{}; }
+
+
 
 	/*std::optional<PlayerAnimVar> On_Event(InAirState& s, const EventLanded& e)
 	{
@@ -146,6 +154,7 @@ public:
 		else if (std::holds_alternative <StartedShootingState > (state_)) { return "StartedShooting"; }
 		else if (std::holds_alternative <StartedMovingState>(state_)) { return "StartedMoving"; }
 		else if (std::holds_alternative <StartedMovingAndShootingState >(state_)) { return "StartedMovingAndShooting"; }
+		else if (std::holds_alternative <JumpingAndShootingState >(state_)) { return "JumpingAndShooting"; }
 		else { return "None"; }
 	}
 };

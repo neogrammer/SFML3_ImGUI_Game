@@ -15,7 +15,7 @@ struct EventRecovered : FSMEvent { EventRecovered() : FSMEvent() { setName("Reco
 struct EventLifeDepleted : FSMEvent { EventLifeDepleted() : FSMEvent() { setName("LifeDepleted"); } };
 struct EventNearingTopOfJump : FSMEvent { EventNearingTopOfJump() : FSMEvent() { setName("NearingTopOfJump"); } };
 struct EventStoppedShooting : FSMEvent { EventStoppedShooting() : FSMEvent() { setName("StoppedShooting"); } };
-struct EventStartedJumping : FSMEvent { EventStartedJumping() : FSMEvent() { setName("StartedJumping"); } };
+struct EventStartedJumping : FSMEvent { EventStartedJumping() : FSMEvent() { setName("StartedJump"); } };
 struct EventLanding : FSMEvent { bool moving{ false };  EventLanding(bool moving_) : FSMEvent(), moving{ moving_ } { setName("Landing"); } };
 struct EventShootSetupDone : FSMEvent { EventShootSetupDone() : FSMEvent{} { setName("ShootSetupDone"); } };
 struct EventReachedJumpHeight : FSMEvent { EventReachedJumpHeight() : FSMEvent() { setName("ReachedJumpHeight"); } };

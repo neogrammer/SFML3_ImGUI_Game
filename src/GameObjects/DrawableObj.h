@@ -62,7 +62,6 @@ public:
 	bool m_facingRight{ true };
 
 
-
 	friend bool operator==(DrawableObj& lhs_, DrawableObj& rhs_);
 
 	void update(float dt_) override;

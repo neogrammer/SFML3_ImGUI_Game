@@ -115,13 +115,17 @@ int main(int argc, char* argv[])
         }
 
         player.update(dt.asSeconds());
+
+        
         // update other game objects now
+
 
         // now ticked, check collisions and adjust accordingly
         for (auto& tile : tmap1.getTiles())
         {
             if (Physics::rectVrect(player.GetPosition(), player.GetSize(), tile->GetPosition(), tile->GetSize()))
             {
+                
                 Physics::resolveCollision(&player, dynamic_cast<GObj*>(tile));
             }
         }

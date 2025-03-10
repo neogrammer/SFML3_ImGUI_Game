@@ -9,8 +9,8 @@
  StartedShooting Left 44 43 130 160 3 1040 2240 17
  Shooting Right 44 43 130 160 1 1560 160 17 
  Shooting Left 44 43 130 160 1 1560 2240 17
-StartedJumping Right 44 43 130 160 3 0 800 17 
-StartedJumping Left 44 43 130 160 3 0 2880 17
+StartedJump Right 44 43 130 160 3 0 800 17 
+StartedJump Left 44 43 130 160 3 0 2880 17
 Rising Right 44 43 130 160 1 390 800 17 
 Rising Left 44 43 130 160 1 390 2880 17
 AtJumpTop Right 44 43 130 160 2 520 800 17
@@ -23,8 +23,8 @@ StartedMovingAndShooting Right 44 43 130 160 2 0 480 17
 StartedMovingAndShooting Left 44 43 130 160 2 0 2560 17 
 MovingAndShooting Right 44 43 130 160 10 260 480 17
 MovingAndShooting Left 44 43 130 160 10 260 2560 17
-StartedJumpingAndShooting Right 44 43 130 160 3 0 960 17 
-StartedJumpingAndShooting Left 44 43 130 160 3 0 3040 17
+StartedJumpAndShooting Right 44 43 130 160 3 0 960 17 
+StartedJumpAndShooting Left 44 43 130 160 3 0 3040 17
 RisingAndShooting Right 44 43 130 160 1 390 960 17 
 RisingAndShooting Left 44 43 130 160 1 390 3040 17
 AtJumpTopAndShooting Right 44 43 130 160 2 520 960 17

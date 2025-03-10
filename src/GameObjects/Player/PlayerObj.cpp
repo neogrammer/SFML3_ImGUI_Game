@@ -29,6 +29,27 @@ PlayerObj::PlayerObj() : DrawableObj{}
 
 		m_frameDelays["StartedMovingAndShooting"] = 0.08f;
 		m_loopDelays["StartedMovingAndShooting"] = 0.f;
+		m_frameDelays["StartedJump"] = 0.08f;
+		m_loopDelays["StartedJump"] = 10.f;
+		m_frameDelays["Rising"] = 0.03f;
+		m_loopDelays["Rising"] = 10.f;
+		m_frameDelays["AtJumpTop"] = 0.03f;
+		m_loopDelays["AtJumpTop"] = 10.f;
+		m_frameDelays["Falling"] = 0.03f;
+		m_loopDelays["Falling"] = 10.f;
+		m_frameDelays["Landing"] = 0.08f;
+		m_loopDelays["Landing"] = 10.f;
+		m_frameDelays["StartedJumpAndShooting"] = 0.08f;
+		m_loopDelays["StartedJumpAndShooting"] = 10.f;
+		m_frameDelays["RisingAndShooting"] = 0.03f;
+		m_loopDelays["RisingAndshooting"] = 10.f;
+		m_frameDelays["AtJumpTopAndShooting"] = 0.08f;
+		m_loopDelays["AtJumpTopAndShooting"] = 10.f;
+		m_frameDelays["FallingAndShooting"] = 0.03f;
+		m_loopDelays["FallingAndShooting"] = 10.f;
+		m_frameDelays["LandingAndShooting"] = 0.03f;
+		m_loopDelays["LandingAndShooting"] = 10.f;
+
 
 	}
 
@@ -41,8 +62,20 @@ void PlayerObj::handleInput()
 {
 }
 
+FSM_Player& PlayerObj::getFsm()
+{
+	return fsmPlayer;
+}
+
 void PlayerObj::update(float dt_)
 {
+
+	if (m_onGround == true && ((fsmPlayer.getStateName() == "Landing" && m_animName == "Landing") || (fsmPlayer.getStateName() == "LandingAndShooting" && m_animName == "LandingAndShooting")))
+	{
+		dispatch(fsmPlayer, EventLanding2{});
+	}
+
+
 	auto* drO = dynamic_cast<DrawableObj*>(this);
 
 	if (((!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))))
@@ -158,8 +191,57 @@ void PlayerObj::update(float dt_)
 		}
 	}
 
+	if (!m_onGround)
+	{
+		if (m_animName == "StartedJump" || m_animName == "StartedMovingAndJumping" || m_animName == "StartedJumpAndShooting")
+		{
+			if (m_currentFrame = 1)
+			{
+				dispatch(fsmPlayer, EventJumpStartFinished{});
+				dispatch(fsmPlayer, EventMoveStartFinished{});
+			}
+
+		}
+		else if ((m_animName != "StartedJump") && rising == true && m_animName != "StartedMovingAndJumping" && m_animName != "StartedJumpAndShooting")
+		{
+			rising = false;
+		}
+		else if (m_animName == "Rising" || m_animName == "RisingAndShooting")
+		{
+
+			if (GetVelocity().y < 50.f)
+			{
+				dispatch(fsmPlayer, EventNearingTopOfJump{});
+			}
+		}
+		else if (m_animName == "AtJumpTop" || m_animName == "AtJumpTopAndShooting")
+		{
+			if (GetVelocity().y > 10.f)
+				dispatch(fsmPlayer, EventReachedJumpHeight{});
+		}
+	}
+	if (m_onGround && m_animName == "Falling" || m_animName =="FallingAndShooting")
+	{
+		dispatch(fsmPlayer, EventLanding2{});
+
+	}
+
+
+	if (m_onGround)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+		{
+			SetVelocity({ GetVelocity().x, -1200.f });
+			m_onGround = false;
+			dispatch(fsmPlayer, EventStartedJumping{});
+			rising = true;
+		}
+	}
+	
+
 	if (!this->m_onGround)
 		AdjustVelocity({ 0.f, GRAVITY * dt_ });
+	
 	if (GetVelocity().y > 1600.f)
 		SetVelocity({ GetVelocity().x, 1600.f });
 

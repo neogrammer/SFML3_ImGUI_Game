@@ -225,7 +225,7 @@ void DrawableObj::render(sf::RenderWindow& wnd_)
 {
 	sf::Sprite spr(Cfg::textures.get((int)m_texture));
 	auto pos = GetPosition();
-	auto offset = m_frameOffset[m_animName];
+	auto& offset = m_frameOffset[m_animName];
 	spr.setPosition({ pos.x - offset.x, pos.y - offset.y });
 	if (m_uniDirectional)
 	{

@@ -99,6 +99,12 @@
     <Filter Include="Header Files\Animation">
       <UniqueIdentifier>{10518e38-6879-4709-949f-13249ecb8602}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Animation">
+      <UniqueIdentifier>{05d305d3-2595-4106-a2b5-94b7eac0c4ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Animations">
+      <UniqueIdentifier>{7d5766e6-09d5-4e52-ab7b-7584548a364f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -150,7 +156,7 @@
       <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="src\Animation\AnimHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +286,8 @@
     <None Include="src\core\Resources\tpl\ResourceManager.tpl">
       <Filter>Header Files\core\Resources\tpl</Filter>
     </None>
-    <None Include="Assets\Animations\Player.anim" />
+    <None Include="Assets\Animations\Player.anim">
+      <Filter>Assets\Animations</Filter>
+    </None>
   </ItemGroup>
 </Project>

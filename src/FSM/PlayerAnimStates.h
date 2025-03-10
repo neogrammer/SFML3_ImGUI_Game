@@ -27,8 +27,8 @@ struct StartedShootingState {};
 struct StartedMovingState{};
 struct StartedMovingAndShootingState {};
 struct MovingAndShootingState {};
+struct JumpingAndShootingState {};
 
 
-
-using PlayerAnimVar = std::variant<IdleState, StartedMovingState,       StartedMovingAndShootingState,  ShootingState,  HitState, DeadState, MovingState, StartedJumpState, RisingState, FallingState, LandingState, MovingAndShootingState, StartedJumpAndShootingState, RisingAndShootingState, AtJumpTopAndShootingState, AtJumpTopState, FallingAndShootingState, LandingAndShootingState, StartedShootingState>;
+using PlayerAnimVar = std::variant<IdleState, StartedMovingState, JumpingAndShootingState,    StartedMovingAndShootingState,  ShootingState,  HitState, DeadState, MovingState, StartedJumpState, RisingState, FallingState, LandingState, MovingAndShootingState, StartedJumpAndShootingState, RisingAndShootingState, AtJumpTopAndShootingState, AtJumpTopState, FallingAndShootingState, LandingAndShootingState, StartedShootingState>;
 

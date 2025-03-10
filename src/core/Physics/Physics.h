@@ -2,6 +2,7 @@
 
 #include <algorithm> // for std::max, std::min, and std::swap
 #include <GameObjects/Player/PlayerObj.h>
+#include <FSM/Events.h>
 
 class Physics
 {
@@ -244,9 +245,21 @@ public:
             newY -= minOverlap;
    //         dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
             dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
-
+            
+            if (!dynamicObj->GetOnGround())
+            {
+                if (dynamic_cast<PlayerObj*>(dynamicObj) != nullptr)
+                {
+                    auto* p = dynamic_cast<PlayerObj*>(dynamicObj);
+                    p->disp(EventLanding{(fabsf(p->GetVelocity().x) > 0.f)});
+                }
+            }
            dynamicObj->SetOnGround(true);
-               /* setAnimation("Idle");
+           
+            
+           
+           
+           /* setAnimation("Idle");
 
                 if (std::abs(dynamic_cast<Player*>(dynamicObj)->currVelocity().x) >= 0.01f)
                     dynamic_cast<Player*>(dynamicObj)->setAnimation("Walk");*/
@@ -262,7 +275,7 @@ public:
             dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
 
         }
-
+       
         dynamicObj->SetPosition({ newX, newY });
     }
 };
