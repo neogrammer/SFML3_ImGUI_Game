@@ -111,6 +111,12 @@
     <Filter Include="Header Files\GameObjects\StandardEnemy">
       <UniqueIdentifier>{8b0c41ef-a55f-4720-b0a8-3534250ef828}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects\Projectiles">
+      <UniqueIdentifier>{d4309a6b-2745-4af1-9ded-7ce2dd34c646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects\Projectiles">
+      <UniqueIdentifier>{f4f85765-9905-4953-8c97-31497fa9651e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -166,6 +172,12 @@
     </ClCompile>
     <ClCompile Include="src\GameObjects\StandardEnemy\StandardEnemy.cpp">
       <Filter>Source Files\GameObjects\StandardEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Projectiles\BusterBullet.cpp">
+      <Filter>Source Files\GameObjects\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Projectiles\Projectile.cpp">
+      <Filter>Source Files\GameObjects\Projectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +270,15 @@
     </ClInclude>
     <ClInclude Include="src\GameObjects\StandardEnemy\StandardEnemy.h">
       <Filter>Header Files\GameObjects\StandardEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Projectiles\Projectile.h">
+      <Filter>Header Files\GameObjects\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Projectiles\ProjectileTypes.h">
+      <Filter>Header Files\GameObjects\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Projectiles\BusterBullet.h">
+      <Filter>Header Files\GameObjects\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

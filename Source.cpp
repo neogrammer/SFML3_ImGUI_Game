@@ -213,38 +213,33 @@ int main(int argc, char* argv[])
         player.render(window);
 
 
-        if (player.getFsm().getStateName() == "Shooting")
-        {
-            nowOff = (sf::Vector2i)player.getFrameOffset();
-            nowPos = (sf::Vector2i)player.GetPosition();
-            nowVel = (sf::Vector2i)player.GetVelocity();
-            nowSize = (sf::Vector2i)player.GetSize();
-            nowTRSize = player.getTexRectSize();
+        //if (player.getFsm().getStateName() == "Shooting")
+        //{
+        //    nowOff = (sf::Vector2i)player.getFrameOffset();
+        //    nowPos = (sf::Vector2i)player.GetPosition();
+        //    nowVel = (sf::Vector2i)player.GetVelocity();
+        //    nowSize = (sf::Vector2i)player.GetSize();
+        //    nowTRSize = player.getTexRectSize();
 
-            std::string oss = "Player OutPut at #1 frame index:  ";
-            oss.append("\n");
-            size_t sz = (size_t)((((nowPos.x < 10) ? 1 : (nowPos.x < 100) ? 2 : 3))) * sizeof(char);
-            char buffer[1024];
-            _itoa_s(nowPos.x, buffer, sz + 1, 10);
-            std::string tmp = buffer;
-
-            oss.append("World: x = " + std::to_string(nowPos.x) + ", y= " + std::to_string(nowPos.y));
-            oss.append("\n");
-            oss.append("TexOffsets: x = " + std::to_string(nowOff.x) + ", y = " + std::to_string(nowOff.y));
-            oss.append("\n");
-            oss.append("(Size(World) : x = " + std::to_string(nowSize.x) + ", y= " + std::to_string(nowSize.y));
-            oss.append("\n");
-            oss.append("Velocity*dt: x= " + std::to_string(nowVel.x) + ", y= " + std::to_string(nowVel.y));
-            oss.append("\n");
-            oss.append("Size(TexRect): x= " + std::to_string(nowTRSize.x) + ", y= " + std::to_string(nowTRSize.y));
+        //    std::string oss = "Player OutPut at #1 frame index:  ";
+        //    oss.append("\n");
+        //    oss.append("World: x = " + std::to_string(nowPos.x) + ", y= " + std::to_string(nowPos.y));
+        //    oss.append("\n");
+        //    oss.append("TexOffsets: x = " + std::to_string(nowOff.x) + ", y = " + std::to_string(nowOff.y));
+        //    oss.append("\n");
+        //    oss.append("(Size(World) : x = " + std::to_string(nowSize.x) + ", y= " + std::to_string(nowSize.y));
+        //    oss.append("\n");
+        //    oss.append("Velocity*dt: x= " + std::to_string(nowVel.x) + ", y= " + std::to_string(nowVel.y));
+        //    oss.append("\n");
+        //    oss.append("Size(TexRect): x= " + std::to_string(nowTRSize.x) + ", y= " + std::to_string(nowTRSize.y));
 
 
 
-           // strng = oss.str();
-            
-            mytext.setString(oss);
-        }
-        window.draw(mytext);
+        //   // strng = oss.str();
+        //    
+        //    mytext.setString(oss);
+        //}
+        //window.draw(mytext);
 
 
         // and last but not lease ImGui
