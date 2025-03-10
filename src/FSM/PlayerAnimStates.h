@@ -3,46 +3,32 @@
 #include <variant>
 #include <FSM/Events.h>
 
+
+
+
+
 struct IdleState {};
 struct HitState {};
 struct DeadState {};
-struct ShootingState { };
 struct MovingState {};
-struct StartedJumpState {};
-struct RisingState {};
 struct AtJumpTopState {};
-struct FallingState {};
-struct MovingAndShootingState {};
-struct LandingState {};
+struct AtJumpTopStateAndShooting {};
+struct StartedJumpState {};
 struct StartedJumpAndShootingState {};
-struct StartedJumpAndStartedShootingState {};
-struct MovingAndStartedJumpState {};
-struct MovingAndStartedJumpAndShootingState {};
-struct RisingAndStartedShootingState {};
+struct RisingState {};
 struct RisingAndShootingState {};
-struct AtJumpTopAndStartedShootingState {};
-struct FallingAndStartedShootingState{};
 struct AtJumpTopAndShootingState {};
-struct FallingAndShootingState {};
+struct FallingState {};
+struct FallingAndShootingState {};;
+struct LandingState {};
 struct LandingAndShootingState {};
-struct MovingAndLandingState {};
-struct MovingAndLandingAndShootingState {};
+struct ShootingState {};
 struct StartedShootingState {};
-struct MovingAndStartedShootingState {};
-struct LandingAndStartedShootingState{};
-struct MovingAndStartedJumpAndStartedShootingState {};
-struct MovingAndLandingAndStartedShootingState {};
 struct StartedMovingState{};
-struct StartedMovingAndLandingState {};
 struct StartedMovingAndShootingState {};
-struct StartedMovingAndStartedJumpingState {};
-struct StartedMovingAndStartedShootingState{};
-struct StartedMovingAndLandingAndStartedShootingState {};
-struct StartedMovingAndStartedJumpingAndStartedShootingState {};
-struct StartedMovingAndLandingAndShootingState {};
-struct StartedMovingAndStartedJumpingAndShootingState {};
-struct StartedJumpingAndStartedShootingState {};
+struct MovingAndShootingState {};
 
 
-using PlayerAnimVar = std::variant<IdleState, StartedMovingState, StartedMovingAndLandingAndShootingState, StartedJumpingAndStartedShootingState, StartedMovingAndStartedJumpingAndShootingState, StartedMovingAndStartedJumpingAndStartedShootingState, StartedMovingAndLandingAndStartedShootingState, StartedMovingAndStartedShootingState, StartedMovingAndLandingState, StartedMovingAndShootingState, StartedMovingAndStartedJumpingState , StartedJumpAndStartedShootingState,  MovingAndLandingAndStartedShootingState, MovingAndStartedJumpAndStartedShootingState, LandingAndStartedShootingState, AtJumpTopAndStartedShootingState, FallingAndStartedShootingState, RisingAndStartedShootingState,  ShootingState,  HitState, DeadState, MovingState, StartedJumpState, RisingState, FallingState, LandingState, MovingAndShootingState, StartedJumpAndShootingState, MovingAndStartedJumpState, MovingAndStartedJumpAndShootingState, RisingAndShootingState, AtJumpTopAndShootingState, AtJumpTopState, FallingAndShootingState, LandingAndShootingState, MovingAndLandingState, MovingAndLandingAndShootingState, StartedShootingState, MovingAndStartedShootingState>;
+
+using PlayerAnimVar = std::variant<IdleState, StartedMovingState,       StartedMovingAndShootingState,  ShootingState,  HitState, DeadState, MovingState, StartedJumpState, RisingState, FallingState, LandingState, MovingAndShootingState, StartedJumpAndShootingState, RisingAndShootingState, AtJumpTopAndShootingState, AtJumpTopState, FallingAndShootingState, LandingAndShootingState, StartedShootingState>;
 
