@@ -10,6 +10,7 @@
 #include <iostream>
 #include <GameObjects/Player/PlayerObj.h>
 #include <Physics/Physics.h>
+#include <GameObjects/StandardEnemy/StandardEnemy.h>
 
 int main(int argc, char* argv[])
 {
@@ -25,6 +26,7 @@ int main(int argc, char* argv[])
     tmap1.Initialize(LevelName::Intro);
 
     PlayerObj player;
+    StandardEnemy enemy;
 
 
     // ImGui default Font load
@@ -191,7 +193,7 @@ int main(int argc, char* argv[])
         window.clear(sf::Color(47, 147, 247, 255));
         // render tilemap, then gameobjects, then foreground then GUI, then pause screen if paused
         tmap1.Render(window, dt.asSeconds());
-
+        enemy.render(window);
         player.render(window);
         // and last but not lease ImGui
         ImGui::SFML::Render(window);

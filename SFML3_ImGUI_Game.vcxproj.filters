@@ -105,6 +105,12 @@
     <Filter Include="Assets\Animations">
       <UniqueIdentifier>{7d5766e6-09d5-4e52-ab7b-7584548a364f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameObjects\StandardEnemy">
+      <UniqueIdentifier>{1b3d80f4-8303-4ddd-afcf-7eabaaa32e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects\StandardEnemy">
+      <UniqueIdentifier>{8b0c41ef-a55f-4720-b0a8-3534250ef828}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -157,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="src\Animation\AnimHandler.cpp">
       <Filter>Source Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\StandardEnemy\StandardEnemy.cpp">
+      <Filter>Source Files\GameObjects\StandardEnemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="src\Event\EventTypes.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\StandardEnemy\StandardEnemy.h">
+      <Filter>Header Files\GameObjects\StandardEnemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
