@@ -185,7 +185,7 @@ void PlayerObj::update(float dt_)
 
 			shootSetupElapsed += dt_;
 
-			if (m_currentFrame == 2 || m_animName == "Shooting" || m_animName == "MovingAndShooting")
+			if ((m_currentFrame == 2 && (m_animName == "StartedJumpAndShooting")) || (m_animName == "Shooting") || (m_animName == "RisingAndShooting") || (m_animName == "AtJumpTopAndShooting") || (m_animName == "FallingAndShooting") || (m_animName == "LandingAndShooting") || (m_animName == "MovingAndShooting"))
 			{
 				if (m_bullets.size() < this->MAXBULLETS) m_bullets.push_back(CreateBullet());
 				dispatch(fsmPlayer, EventShootSetupDone{});

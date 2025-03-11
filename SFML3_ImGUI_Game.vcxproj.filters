@@ -120,6 +120,18 @@
     <Filter Include="Assets\Textures\Projectiles">
       <UniqueIdentifier>{4b331991-622e-414b-8a12-daa5d8ec9e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Sound">
+      <UniqueIdentifier>{399ba692-c40b-4add-a937-2e45a5d73cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sound\music">
+      <UniqueIdentifier>{9f895f4f-708c-4088-8192-1c9a1e63a661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sound\sfx">
+      <UniqueIdentifier>{a378c78d-32a6-4e1b-941f-e207353329c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sound\sfx\x">
+      <UniqueIdentifier>{ffefcf10-a224-46c8-b77f-aadf75a53113}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -334,5 +346,55 @@
     <None Include="Assets\Animations\BusterBullet.anim">
       <Filter>Assets\Animations</Filter>
     </None>
+    <None Include="Assets\Sound\sfx\x\BusterNormal.ogg">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </None>
+    <None Include="Assets\Sound\sfx\x\Land.ogg">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Sound\sfx\x\ChargeShot.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Charge.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\ChargePlusShot.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\ChargePlusSuperShot.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Dash.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Hurt.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Die.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Life.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\ExtraLife.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\HelmetHit.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Small_Hit.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\EnDie2.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\EnDie.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
+    <Media Include="Assets\Sound\sfx\x\Jump.wav">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </Media>
   </ItemGroup>
 </Project>

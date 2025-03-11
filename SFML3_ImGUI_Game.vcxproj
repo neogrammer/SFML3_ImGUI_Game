@@ -228,7 +228,25 @@
   <ItemGroup>
     <None Include="Assets\Animations\BusterBullet.anim" />
     <None Include="Assets\Animations\Player.anim" />
+    <None Include="Assets\Sound\sfx\x\BusterNormal.ogg" />
+    <None Include="Assets\Sound\sfx\x\Land.ogg" />
     <None Include="src\core\Resources\tpl\ResourceManager.tpl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Sound\sfx\x\ChargeShot.wav" />
+    <Media Include="Assets\Sound\sfx\x\Charge.wav" />
+    <Media Include="Assets\Sound\sfx\x\ChargePlusShot.wav" />
+    <Media Include="Assets\Sound\sfx\x\ChargePlusSuperShot.wav" />
+    <Media Include="Assets\Sound\sfx\x\Dash.wav" />
+    <Media Include="Assets\Sound\sfx\x\Hurt.wav" />
+    <Media Include="Assets\Sound\sfx\x\Die.wav" />
+    <Media Include="Assets\Sound\sfx\x\Life.wav" />
+    <Media Include="Assets\Sound\sfx\x\ExtraLife.wav" />
+    <Media Include="Assets\Sound\sfx\x\HelmetHit.wav" />
+    <Media Include="Assets\Sound\sfx\x\Small_Hit.wav" />
+    <Media Include="Assets\Sound\sfx\x\EnDie2.wav" />
+    <Media Include="Assets\Sound\sfx\x\EnDie.wav" />
+    <Media Include="Assets\Sound\sfx\x\Jump.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -177,7 +177,7 @@ int main(int argc, char* argv[])
         }
 
         player.update(dt.asSeconds());
-
+        enemy.update(dt.asSeconds());
       
 
 
@@ -192,6 +192,16 @@ int main(int argc, char* argv[])
             {
                 
                 Physics::resolveCollision(&player, dynamic_cast<GObj*>(tile));
+            }
+        }
+
+        // check bullets on enemies
+        for (auto& bullet : player.getBullets())
+        {
+            if (Physics::rectVrect(bullet->GetPosition(), bullet->GetSize(), enemy.GetPosition(), enemy.GetSize()))
+            {
+                enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower());
+                bullet->setAlive(false);
             }
         }
 

@@ -72,6 +72,9 @@ void StandardEnemy::update(float dt_)
 	animHandler.update(dt_);
 
 	DrawableObj::update(dt_);
+
+	currMask = DetermineMaskColor(dt_);
+
 }
 
 
@@ -81,9 +84,30 @@ void StandardEnemy::render(sf::RenderWindow& wnd_)
 {
 
 
+	sf::Sprite spr(Cfg::textures.get((int)m_texture));
+	auto pos = GetPosition();
+	auto& offset = m_frameOffset[m_animName];
+	spr.setPosition({ pos.x - offset.x, pos.y - offset.y });
+	if (m_uniDirectional)
+	{
+		spr.setTextureRect(m_texFramesUni[m_animName].at(m_currentFrame));
+	}
+	else
+	{
+		if (m_facingRight)
+		{
+			spr.setTextureRect(m_texFramesRight[m_animName].at(m_currentFrame));
+		}
+		else
+		{
+			spr.setTextureRect(m_texFramesLeft[m_animName].at(m_currentFrame));
+		}
+	}
+	spr.setColor(currMask);
 
+	wnd_.draw(spr);
 	//animHandler.render(wnd_);
-	DrawableObj::render(wnd_);
+	//DrawableObj::render(wnd_);
 }
 
 sf::Vector2i StandardEnemy::getTexRectSize()
@@ -99,4 +123,38 @@ Cfg::Textures StandardEnemy::getTextureID()
 sf::Vector2i StandardEnemy::getTexPos()
 {
 	return (sf::Vector2i)DrawableObj::getTexRectPos();
+}
+
+sf::Color StandardEnemy::DetermineMaskColor(float dt_)
+{
+	if (takingDmg)
+	{
+		hitWaitElapsed += dt_;
+		if (hitWaitElapsed >= hitWaitDelay)
+		{
+			hitWaitElapsed = 0.f;
+			takingDmg = false;
+		}
+		return masked;
+	}
+	else
+	{
+		return normal;
+	}
+}
+
+void StandardEnemy::GetHit(int power)
+{
+	
+	if (!takingDmg)
+	{
+		takingDmg = true;
+		hitWaitElapsed = 0.f;
+		health -= power;
+		if (health <= 0)
+		{
+			health = 0;
+			justDied = true;
+		}
+	}
 }
