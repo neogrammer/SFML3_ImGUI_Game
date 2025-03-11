@@ -23,9 +23,9 @@ public:
 	static void Uninitialize();
 	// Resource Enums 
 	enum class Textures : int { PlayerAtlas, EmptyTile, Background_Start, BusterBullet, BGSTART_BIG, Tileset1, Count, Invariant, Invalid };
-	enum class Fonts : int {};
+	enum class Fonts : int { };
 	enum class Music : int {  };
-  enum class Sounds : int { };
+  enum class Sounds : int { XHurt, XDie, BustershotNormal, BustershotCharged, XCharging, EnemyHurt1, EnemyDie1, HelmetHit, XJump, XLand, };
 
 	// inputs the player will be able to use
 	enum PlayerInputs : int

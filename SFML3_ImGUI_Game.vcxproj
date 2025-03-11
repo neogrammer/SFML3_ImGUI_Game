@@ -230,6 +230,7 @@
     <None Include="Assets\Animations\Player.anim" />
     <None Include="Assets\Sound\sfx\x\BusterNormal.ogg" />
     <None Include="Assets\Sound\sfx\x\Land.ogg" />
+    <None Include="Assets\Sound\sfx\x\Small_Hit.oga" />
     <None Include="src\core\Resources\tpl\ResourceManager.tpl" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,9 @@
 #pragma once
 #include <GameObjects/DrawableObj.h>
 #include <Animation/AnimHandler.h>
-
+#include <core/Resources/Cfg.h>
+#include <memory>
+#include <utility>
 class StandardEnemy : public DrawableObj
 {
 	FSM_Player fsmEnemy;
@@ -15,6 +17,8 @@ class StandardEnemy : public DrawableObj
 	float hitWaitElapsed{0.f};
 	bool justDied{ false };
 	sf::Color currMask{ normal };
+
+	std::unordered_map<Cfg::Sounds, std::shared_ptr<sf::Sound>> sounds;
 public:
 
 	StandardEnemy();

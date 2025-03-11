@@ -352,6 +352,9 @@
     <None Include="Assets\Sound\sfx\x\Land.ogg">
       <Filter>Assets\Sound\sfx\x</Filter>
     </None>
+    <None Include="Assets\Sound\sfx\x\Small_Hit.oga">
+      <Filter>Assets\Sound\sfx\x</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Sound\sfx\x\ChargeShot.wav">

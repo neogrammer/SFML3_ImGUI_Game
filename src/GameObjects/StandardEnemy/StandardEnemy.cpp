@@ -3,6 +3,7 @@
 StandardEnemy::StandardEnemy() 
 	: DrawableObj{}
     , animHandler{ &fsmEnemy, dynamic_cast<DrawableObj*>(this) }
+	, sounds{}
 {
 	DrawableObj::initialize("Player.anim", { 49.f,85.f }, Cfg::Textures::PlayerAtlas, { 600.f,600.f-178.f + 43.f }, { 0.f,0.f });
 	setFrameOffset("Idle", { 44.f,43.f });
@@ -50,6 +51,17 @@ StandardEnemy::StandardEnemy()
 	m_loopDelays["LandingAndShooting"] = 10.f;
 
 	this->m_facingRight = false;
+
+	sf::SoundBuffer* snd1 = &Cfg::sounds.get((int)Cfg::Sounds::EnemyDie1);
+	sf::SoundBuffer* snd2 = &Cfg::sounds.get((int)Cfg::Sounds::EnemyHurt1);
+	sf::SoundBuffer* snd3 = &Cfg::sounds.get((int)Cfg::Sounds::HelmetHit);
+
+	sounds.clear();
+	sounds[Cfg::Sounds::EnemyDie1] = std::make_shared<sf::Sound>(*snd1);
+	sounds[Cfg::Sounds::EnemyHurt1] = std::make_shared<sf::Sound>(*snd2);
+	sounds[Cfg::Sounds::HelmetHit] = std::make_shared<sf::Sound>(*snd3);
+
+	sounds.at(Cfg::Sounds::EnemyHurt1)->setVolume(100);
 }
 
 
@@ -148,6 +160,7 @@ void StandardEnemy::GetHit(int power)
 	
 	if (!takingDmg)
 	{
+		sounds.at(Cfg::Sounds::EnemyHurt1)->play();
 		takingDmg = true;
 		hitWaitElapsed = 0.f;
 		health -= power;

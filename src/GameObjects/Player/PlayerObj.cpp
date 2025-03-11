@@ -3,57 +3,85 @@
 #include <GameObjects/Projectiles/BusterBullet.h>
 
 PlayerObj::PlayerObj() : DrawableObj{}
-		, fsmPlayer{}
-		, animHandler{ &fsmPlayer, dynamic_cast<DrawableObj*>(this) }
-		, m_bullets{}
-	{
-		DrawableObj::initialize("Player.anim", { 49.f,85.f }, Cfg::Textures::PlayerAtlas, { 400.f - 65.f,300.f - 80.f }, { 0.f,0.f });
-		setFrameOffset("Idle", { 44.f,43.f });
-		m_frameDelays["Idle"] = 0.13f;
-		m_loopDelays["Idle"] = 1.f;
-		m_loopWaits = true;
+, fsmPlayer{}
+, animHandler{ &fsmPlayer, dynamic_cast<DrawableObj*>(this) }
+, m_bullets{}
+, sounds{}
+{
+	DrawableObj::initialize("Player.anim", { 49.f,85.f }, Cfg::Textures::PlayerAtlas, { 400.f - 65.f,300.f - 80.f }, { 0.f,0.f });
+	setFrameOffset("Idle", { 44.f,43.f });
+	m_frameDelays["Idle"] = 0.13f;
+	m_loopDelays["Idle"] = 1.f;
+	m_loopWaits = true;
 
-		m_frameDelays["Moving"] = 0.09f;
-		m_loopDelays["Moving"] = 0.f;
+	m_frameDelays["Moving"] = 0.09f;
+	m_loopDelays["Moving"] = 0.f;
 
-		m_frameDelays["StartedMoving"] = 0.08f;
-		m_loopDelays["StartedMoving"] = 0.f;
+	m_frameDelays["StartedMoving"] = 0.08f;
+	m_loopDelays["StartedMoving"] = 0.f;
 
-		m_frameDelays["StartedShooting"] = 0.03f;
-		m_loopDelays["StartedShooting"] = 10.f;
+	m_frameDelays["StartedShooting"] = 0.03f;
+	m_loopDelays["StartedShooting"] = 10.f;
 
-		m_frameDelays["Shooting"] = 2.f;
-		m_loopDelays["Shooting"] = 10.f;
+	m_frameDelays["Shooting"] = 2.f;
+	m_loopDelays["Shooting"] = 10.f;
 
 
-		m_frameDelays["MovingAndShooting"] = 0.08f;
-		m_loopDelays["MovingAndShooting"] = 0.f;
+	m_frameDelays["MovingAndShooting"] = 0.08f;
+	m_loopDelays["MovingAndShooting"] = 0.f;
 
-		m_frameDelays["StartedMovingAndShooting"] = 0.08f;
-		m_loopDelays["StartedMovingAndShooting"] = 0.f;
-		m_frameDelays["StartedJump"] = 0.6f;
-		m_loopDelays["StartedJump"] = 10.f;
-		m_frameDelays["Rising"] = 0.6f;
-		m_loopDelays["Rising"] = 10.f;
-		m_frameDelays["AtJumpTop"] = 0.6f;
-		m_loopDelays["AtJumpTop"] = 10.f;
-		m_frameDelays["Falling"] = 0.6f;
-		m_loopDelays["Falling"] = 10.f;
-		m_frameDelays["Landing"] = 0.6f;
-		m_loopDelays["Landing"] = 10.f;
-		m_frameDelays["StartedJumpAndShooting"] = 0.6f;
-		m_loopDelays["StartedJumpAndShooting"] = 10.f;
-		m_frameDelays["RisingAndShooting"] = 0.6f;
-		m_loopDelays["RisingAndShooting"] = 10.f;
-		m_frameDelays["AtJumpTopAndShooting"] = 0.6f;
-		m_loopDelays["AtJumpTopAndShooting"] = 10.f;
-		m_frameDelays["FallingAndShooting"] = 0.6f;
-		m_loopDelays["FallingAndShooting"] = 10.f;
-		m_frameDelays["LandingAndShooting"] = 0.6f;
-		m_loopDelays["LandingAndShooting"] = 10.f;
+	m_frameDelays["StartedMovingAndShooting"] = 0.08f;
+	m_loopDelays["StartedMovingAndShooting"] = 0.f;
+	m_frameDelays["StartedJump"] = 0.6f;
+	m_loopDelays["StartedJump"] = 10.f;
+	m_frameDelays["Rising"] = 0.6f;
+	m_loopDelays["Rising"] = 10.f;
+	m_frameDelays["AtJumpTop"] = 0.6f;
+	m_loopDelays["AtJumpTop"] = 10.f;
+	m_frameDelays["Falling"] = 0.6f;
+	m_loopDelays["Falling"] = 10.f;
+	m_frameDelays["Landing"] = 0.6f;
+	m_loopDelays["Landing"] = 10.f;
+	m_frameDelays["StartedJumpAndShooting"] = 0.6f;
+	m_loopDelays["StartedJumpAndShooting"] = 10.f;
+	m_frameDelays["RisingAndShooting"] = 0.6f;
+	m_loopDelays["RisingAndShooting"] = 10.f;
+	m_frameDelays["AtJumpTopAndShooting"] = 0.6f;
+	m_loopDelays["AtJumpTopAndShooting"] = 10.f;
+	m_frameDelays["FallingAndShooting"] = 0.6f;
+	m_loopDelays["FallingAndShooting"] = 10.f;
+	m_frameDelays["LandingAndShooting"] = 0.6f;
+	m_loopDelays["LandingAndShooting"] = 10.f;
 
-		m_bullets.clear();
-	}
+	m_bullets.clear();
+
+	sounds.clear();
+
+	sf::SoundBuffer* snd1 = &Cfg::sounds.get((int)Cfg::Sounds::BustershotCharged);
+	sf::SoundBuffer* snd2 = &Cfg::sounds.get((int)Cfg::Sounds::BustershotNormal);
+	sf::SoundBuffer* snd3 = &Cfg::sounds.get((int)Cfg::Sounds::XDie);
+	sf::SoundBuffer* snd4 = &Cfg::sounds.get((int)Cfg::Sounds::XHurt);
+	sf::SoundBuffer* snd5 = &Cfg::sounds.get((int)Cfg::Sounds::XCharging);
+	sf::SoundBuffer* snd6 = &Cfg::sounds.get((int)Cfg::Sounds::XJump);
+	sf::SoundBuffer* snd7 = &Cfg::sounds.get((int)Cfg::Sounds::XLand);
+
+
+	sounds[Cfg::Sounds::BustershotCharged] = std::make_shared<sf::Sound>(*snd1);
+	sounds[Cfg::Sounds::BustershotNormal] = std::make_shared<sf::Sound>(*snd2);
+	sounds[Cfg::Sounds::XDie] = std::make_shared<sf::Sound>(*snd3);
+	sounds[Cfg::Sounds::XHurt] = std::make_shared<sf::Sound>(*snd4);
+	sounds[Cfg::Sounds::XCharging] = std::make_shared<sf::Sound>(*snd5);
+	sounds[Cfg::Sounds::XJump] = std::make_shared<sf::Sound>(*snd6);
+	sounds[Cfg::Sounds::XLand] = std::make_shared<sf::Sound>(*snd7);
+
+	sounds.at(Cfg::Sounds::BustershotNormal)->setVolume(100);
+	sounds.at(Cfg::Sounds::XJump)->setVolume(100);
+	sounds.at(Cfg::Sounds::XLand)->setVolume(100);
+
+
+
+};
+	
 
 std::shared_ptr<Projectile> PlayerObj::CreateBullet()
 {
@@ -62,7 +90,9 @@ std::shared_ptr<Projectile> PlayerObj::CreateBullet()
 		project = std::make_shared<BusterBullet>(sf::Vector2f( (m_facingRight ? sf::Vector2f{46.f,17.f} : sf::Vector2f{-20.f , 16.f }) + GetPosition()) );
 	else if (m_animName == "MovingAndShooting")
 		project = std::make_shared<BusterBullet>(sf::Vector2f((m_facingRight ? sf::Vector2f{ 66.f,12.f } : sf::Vector2f{ -40.f , 12.f }) + GetPosition()));
-	else 
+	else if (m_animName == "StartedJumpAndShooting" || m_animName == "RisingAndShooting" || m_animName == "AtJumpTopAndShooting" || m_animName == "FallingAndShooting" || m_animName == "LandingAndShooting")
+		project = std::make_shared<BusterBullet>(sf::Vector2f((m_facingRight ? sf::Vector2f{ 50.f,13.f + (GetVelocity().y * 0.0166f) } : sf::Vector2f{ -27.f , 13.f + (GetVelocity().y * 0.0166f) })) + GetPosition());
+	else
 		project = std::make_shared<BusterBullet>(sf::Vector2f((m_facingRight ? sf::Vector2f{ 0.f,0.f } : sf::Vector2f{ 0.f , 0.f }) + GetPosition()));
 
 	dynamic_cast<BusterBullet*>(project.get())->SetVelocity({ (m_facingRight ? 700.f : -700.f ), 0.f});
@@ -162,7 +192,7 @@ void PlayerObj::update(float dt_)
 			it++;
 		}
 	}
-
+	static bool firstTimeShot = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
 	{
 
@@ -170,7 +200,7 @@ void PlayerObj::update(float dt_)
 		if (m_animName == "Idle" || m_animName == "Moving" || (shootElapsed >= 1.f && m_animName == "Shooting"))
 		{
 
-
+			
 			dispatch(fsmPlayer, EventStartedShooting{});
 			shootSetupElapsed = 0.f;
 			shootSetupDone = false;
@@ -185,10 +215,14 @@ void PlayerObj::update(float dt_)
 
 			shootSetupElapsed += dt_;
 
-			if ((m_currentFrame == 2 && (m_animName == "StartedJumpAndShooting")) || (m_animName == "Shooting") || (m_animName == "RisingAndShooting") || (m_animName == "AtJumpTopAndShooting") || (m_animName == "FallingAndShooting") || (m_animName == "LandingAndShooting") || (m_animName == "MovingAndShooting"))
+			if ((firstTimeShot &&  (m_animName == "StartedJumpAndShooting" || m_animName == "MovingAndShooting" || m_animName == "StartedShooting")) || (m_animName == "Shooting") || (m_animName == "RisingAndShooting") || (m_animName == "AtJumpTopAndShooting") || (m_animName == "FallingAndShooting") || (m_animName == "LandingAndShooting") || (m_animName == "MovingAndShooting"))
 			{
+				if (firstTimeShot)
+					firstTimeShot = false;
+
+				sounds.at(Cfg::Sounds::BustershotNormal)->play();
 				if (m_bullets.size() < this->MAXBULLETS) m_bullets.push_back(CreateBullet());
-				dispatch(fsmPlayer, EventShootSetupDone{});
+				dispatch(fsmPlayer,  EventShootSetupDone{});
 				shootSetupDone = true;
 				shootElapsed = 0.f;
 				shootWaitElapsed = 0.f;
@@ -221,7 +255,7 @@ void PlayerObj::update(float dt_)
 	{
 		shootElapsed = 1.f;
 		shootSetupDone = false;
-
+		firstTimeShot = true;
 		if ((m_animName == "Shooting") || (m_animName == "StartedJumpAndShooting") || (m_animName == "RisingAndShooting") || (m_animName == "AtJumpTopAndShooting") || (m_animName == "FallingAndShooting") || (m_animName == "LandingAndShooting") || (m_animName == "MovingAndShooting"))
 		{
 			shootWaitElapsed += dt_;
@@ -230,6 +264,7 @@ void PlayerObj::update(float dt_)
 				{
 					shootWaitElapsed = 0.f;
 					dispatch(fsmPlayer, EventStoppedShooting());
+					
 				}
 			}
 		}
@@ -283,6 +318,13 @@ void PlayerObj::update(float dt_)
 			m_onGround = false;
 			dispatch(fsmPlayer, EventStartedJumping{});
 			rising = true;
+		}
+	}
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+		{
+			dispatch(fsmPlayer, EventStartedShooting{});
 		}
 	}
 	
@@ -370,6 +412,10 @@ sf::Vector2i PlayerObj::getTexPos()
 
 void PlayerObj::SetOnGround(bool cond_)
 {
+	if (cond_ == true)
+	{
+		sounds.at(Cfg::Sounds::XLand)->play();
+	}
 	m_onGround = cond_;
 }
 

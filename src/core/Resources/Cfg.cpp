@@ -28,6 +28,18 @@ void Cfg::initMusic()
 
 void Cfg::initSounds()
 {
+	sounds.load((int)Sounds::BustershotCharged, "Assets/Sound/sfx/x/ChargeShot.wav");
+	sounds.load((int)Sounds::BustershotNormal, "Assets/Sound/sfx/x/BusterNormal.ogg");
+	sounds.load((int)Sounds::EnemyDie1, "Assets/Sound/sfx/x/enDie2.wav");
+	sounds.load((int)Sounds::EnemyHurt1, "Assets/Sound/sfx/x/Small_Hit.oga");
+	sounds.load((int)Sounds::HelmetHit, "Assets/Sound/sfx/x/HelmetHit.wav");
+	sounds.load((int)Sounds::XCharging, "Assets/Sound/sfx/x/Charge.wav");
+	sounds.load((int)Sounds::XDie, "Assets/Sound/sfx/x/Die.wav");
+	sounds.load((int)Sounds::XHurt, "Assets/Sound/sfx/x/Hurt.wav");
+	sounds.load((int)Sounds::XJump, "Assets/Sound/sfx/x/Jump.wav");
+	sounds.load((int)Sounds::XLand, "Assets/Sound/sfx/x/Land.ogg");
+
+
 }
 
 void Cfg::initTextures()
