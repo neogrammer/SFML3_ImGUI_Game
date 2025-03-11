@@ -39,6 +39,7 @@ void Cfg::initTextures()
 	textures.load((int)Textures::Tileset1, "Assets/Textures/Tilesets/IntroSet.png");
 	textures.load((int)Textures::Invariant, "Assets/Textures/Invariant.png");
 	textures.load((int)Textures::EmptyTile, "Assets/Textures/Tilesets/EmptyTile.png");
+	textures.load((int)Textures::BusterBullet, "Assets/Textures/Projectiles/busterBulletSM.png");
 }
 
 void Cfg::destroyTextures()

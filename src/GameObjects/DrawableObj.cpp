@@ -1,6 +1,7 @@
 #include "DrawableObj.h"
 #include <iostream>
 #include <fstream>
+#include <GameObjects/Projectiles/Projectile.h>
 bool operator==(DrawableObj& lhs_, DrawableObj& rhs_)
 {
 	return lhs_.ID() == rhs_.ID();
@@ -41,9 +42,11 @@ void DrawableObj::initialize(const std::string& filepath_, sf::Vector2f size_, C
 			int pitch;
 			iFile >> animName >> direction >> frameOffX >> frameOffY >> frameSizeX >> frameSizeY >> numFrames >> startX >> startY >> pitch;
 
-			int rows = (numFrames / pitch) + 1;
+			int rows = std::max((numFrames / pitch), 1);
 			int cols = pitch;
+			
 			m_frameOffset[animName] = { (float)frameOffX, (float)frameOffY };
+			
 			if (direction == "Right")
 			{
 				m_texFramesRight[animName] = std::vector<sf::IntRect>{};

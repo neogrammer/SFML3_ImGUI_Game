@@ -22,7 +22,7 @@ public:
 	static void Initialize();
 	static void Uninitialize();
 	// Resource Enums 
-	enum class Textures : int { PlayerAtlas, EmptyTile, Background_Start, BGSTART_BIG, Tileset1, Count, Invariant, Invalid };
+	enum class Textures : int { PlayerAtlas, EmptyTile, Background_Start, BusterBullet, BGSTART_BIG, Tileset1, Count, Invariant, Invalid };
 	enum class Fonts : int {};
 	enum class Music : int {  };
   enum class Sounds : int { };

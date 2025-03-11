@@ -3,17 +3,20 @@
 #include <Tilemap/TilemapTypes.h>
 #include <FSM/PlayerAnimFSM.h>
 #include <Animation/AnimHandler.h>
+
 class Tilemap;
 class TileObj;
-
+class Projectile;
 class PlayerObj : public DrawableObj
 {
+	const int MAXBULLETS = 5;
 	bool m_onGround{ false };
 	const int GRAVITY{ 3200 };
 	bool rising{ false };
 	FSM_Player fsmPlayer;
 	bool leftPressed{ false }, rightPressed{ false }, upPressed{ false }, downPressed{ false };
 
+	std::vector<std::shared_ptr<Projectile>> m_bullets;
 
 	AnimHandler animHandler;
 public:
@@ -27,8 +30,9 @@ public:
 	PlayerObj& operator=(PlayerObj&&)=delete;
 
 	void handleInput();
+	std::shared_ptr<Projectile> CreateBullet();
 	void UpdateDPad(bool* pressed);
-
+	std::vector<std::shared_ptr<Projectile>>& getBullets();
 
 
 	FSM_Player& getFsm();

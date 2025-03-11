@@ -117,6 +117,9 @@
     <Filter Include="Source Files\GameObjects\Projectiles">
       <UniqueIdentifier>{f4f85765-9905-4953-8c97-31497fa9651e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Textures\Projectiles">
+      <UniqueIdentifier>{4b331991-622e-414b-8a12-daa5d8ec9e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -314,12 +317,21 @@
     <Image Include="Assets\Textures\Tilesets\IntroSet.png">
       <Filter>Assets\Textures\Tilesets</Filter>
     </Image>
+    <Image Include="Assets\Textures\Projectiles\busterBullet.png">
+      <Filter>Assets\Textures\Projectiles</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Projectiles\cannonBall.png">
+      <Filter>Assets\Textures\Projectiles</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\core\Resources\tpl\ResourceManager.tpl">
       <Filter>Header Files\core\Resources\tpl</Filter>
     </None>
     <None Include="Assets\Animations\Player.anim">
+      <Filter>Assets\Animations</Filter>
+    </None>
+    <None Include="Assets\Animations\BusterBullet.anim">
       <Filter>Assets\Animations</Filter>
     </None>
   </ItemGroup>

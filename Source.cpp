@@ -12,6 +12,7 @@
 #include <Physics/Physics.h>
 #include <GameObjects/StandardEnemy/StandardEnemy.h>
 #include <sstream>
+#include <GameObjects/Projectiles/BusterBullet.h>
 
 int main(int argc, char* argv[])
 {
@@ -170,7 +171,15 @@ int main(int argc, char* argv[])
                 vw.setCenter({ vw.getCenter().x,  vw.getCenter().y + (350.f * dt.asSeconds()) });
         }
 
+        for (auto& b : player.getBullets())
+        {
+            b->update(dt.asSeconds());
+        }
+
         player.update(dt.asSeconds());
+
+      
+
 
         
         // update other game objects now
@@ -209,9 +218,13 @@ int main(int argc, char* argv[])
         window.clear(sf::Color(47, 147, 247, 255));
         // render tilemap, then gameobjects, then foreground then GUI, then pause screen if paused
         tmap1.Render(window, dt.asSeconds());
+      
         enemy.render(window);
         player.render(window);
-
+        for (auto& b : player.getBullets())
+        {
+            b->render(window);
+        }
 
         //if (player.getFsm().getStateName() == "Shooting")
         //{

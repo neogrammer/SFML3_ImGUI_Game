@@ -1,9 +1,11 @@
 #include "PlayerObj.h"
 #include <Tilemap/Tilemap.h>
+#include <GameObjects/Projectiles/BusterBullet.h>
 
 PlayerObj::PlayerObj() : DrawableObj{}
 		, fsmPlayer{}
 		, animHandler{ &fsmPlayer, dynamic_cast<DrawableObj*>(this) }
+		, m_bullets{}
 	{
 		DrawableObj::initialize("Player.anim", { 49.f,85.f }, Cfg::Textures::PlayerAtlas, { 400.f - 65.f,300.f - 80.f }, { 0.f,0.f });
 		setFrameOffset("Idle", { 44.f,43.f });
@@ -50,9 +52,22 @@ PlayerObj::PlayerObj() : DrawableObj{}
 		m_frameDelays["LandingAndShooting"] = 0.6f;
 		m_loopDelays["LandingAndShooting"] = 10.f;
 
-
+		m_bullets.clear();
 	}
 
+std::shared_ptr<Projectile> PlayerObj::CreateBullet()
+{
+	std::shared_ptr<Projectile> project;
+	if(m_animName == "Shooting" || m_animName == "StartedShooting")
+		project = std::make_shared<BusterBullet>(sf::Vector2f( (m_facingRight ? sf::Vector2f{46.f,17.f} : sf::Vector2f{-20.f , 16.f }) + GetPosition()) );
+	else if (m_animName == "MovingAndShooting")
+		project = std::make_shared<BusterBullet>(sf::Vector2f((m_facingRight ? sf::Vector2f{ 66.f,12.f } : sf::Vector2f{ -40.f , 12.f }) + GetPosition()));
+	else 
+		project = std::make_shared<BusterBullet>(sf::Vector2f((m_facingRight ? sf::Vector2f{ 0.f,0.f } : sf::Vector2f{ 0.f , 0.f }) + GetPosition()));
+
+	dynamic_cast<BusterBullet*>(project.get())->SetVelocity({ (m_facingRight ? 700.f : -700.f ), 0.f});
+	return project;
+}
 
 PlayerObj::~PlayerObj()
 {
@@ -68,6 +83,12 @@ void PlayerObj::UpdateDPad(bool* pressed)
 	downPressed = pressed[1];
 	leftPressed = pressed[2];
 	rightPressed = pressed[3];
+}
+
+std::vector<std::shared_ptr<Projectile>>& PlayerObj::getBullets()
+{
+	// TODO: insert return statement here
+	return m_bullets;
 }
 
 FSM_Player& PlayerObj::getFsm()
@@ -130,25 +151,43 @@ void PlayerObj::update(float dt_)
 	static float shootWaitElapsed = 0.f;
 	static bool justStoppedShooting = false;
 	static float shootElapsed = 0.f;
+
+	auto  it = m_bullets.begin();
+	while (it != m_bullets.end()) {
+		if (!(*it)->isAlive()) {
+			it = m_bullets.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
 	{
 
 	
-		if (m_animName == "Idle" || m_animName == "Moving")
+		if (m_animName == "Idle" || m_animName == "Moving" || (shootElapsed >= 1.f && m_animName == "Shooting"))
 		{
+
+
 			dispatch(fsmPlayer, EventStartedShooting{});
 			shootSetupElapsed = 0.f;
 			shootSetupDone = false;
 			shootWaitElapsed = 0.f;
 			justStoppedShooting = false;
+			shootElapsed = 0.f;
 		}
 		else	if(!shootSetupDone)
 		{
 
+
+
 			shootSetupElapsed += dt_;
 
-			if (shootSetupElapsed > 0.1f)
+			if (m_currentFrame == 2 || m_animName == "Shooting" || m_animName == "MovingAndShooting")
 			{
+				if (m_bullets.size() < this->MAXBULLETS) m_bullets.push_back(CreateBullet());
 				dispatch(fsmPlayer, EventShootSetupDone{});
 				shootSetupDone = true;
 				shootElapsed = 0.f;
@@ -163,7 +202,7 @@ void PlayerObj::update(float dt_)
 
 				// is shooting already and key is held down
 				shootElapsed += dt_;
-				if (shootElapsed > 2.f) //fireBulletWait)
+				if (shootElapsed > 0.3f) //fireBulletWait)
 				{
 					shootElapsed = 0.f;
 					shootWaitElapsed = 0.f;
@@ -172,6 +211,7 @@ void PlayerObj::update(float dt_)
 					{
 						// FIRE BULLET
 						std::cout << "Fire bullet" << std::endl;
+						//m_bullets.push_back(CreateBullet());
 					}
 				}
 
@@ -179,13 +219,13 @@ void PlayerObj::update(float dt_)
 	}
 	else
 	{
-		shootElapsed = 0.f;
+		shootElapsed = 1.f;
 		shootSetupDone = false;
 
 		if ((m_animName == "Shooting") || (m_animName == "StartedJumpAndShooting") || (m_animName == "RisingAndShooting") || (m_animName == "AtJumpTopAndShooting") || (m_animName == "FallingAndShooting") || (m_animName == "LandingAndShooting") || (m_animName == "MovingAndShooting"))
 		{
 			shootWaitElapsed += dt_;
-			if (shootWaitElapsed > 0.25f)
+			if (shootWaitElapsed > 0.35f)
 			{
 				{
 					shootWaitElapsed = 0.f;

@@ -219,11 +219,14 @@
     <Image Include="Assets\Textures\Backgrounds\GameStartBGBig.jpg" />
     <Image Include="Assets\Textures\GameObjects\Player\PlayerAtlas.png" />
     <Image Include="Assets\Textures\Invariant.png" />
+    <Image Include="Assets\Textures\Projectiles\busterBullet.png" />
+    <Image Include="Assets\Textures\Projectiles\cannonBall.png" />
     <Image Include="Assets\Textures\Tilesets\EmptyTile.png" />
     <Image Include="Assets\Textures\Tilesets\IntroSet.png" />
     <Image Include="Assets\Textures\Tilesets\TSet1_50x50.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Animations\BusterBullet.anim" />
     <None Include="Assets\Animations\Player.anim" />
     <None Include="src\core\Resources\tpl\ResourceManager.tpl" />
   </ItemGroup>
