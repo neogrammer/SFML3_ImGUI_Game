@@ -132,6 +132,9 @@
     <Filter Include="Assets\Sound\sfx\x">
       <UniqueIdentifier>{ffefcf10-a224-46c8-b77f-aadf75a53113}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Textures\Enemies">
+      <UniqueIdentifier>{25d53917-cb1f-41cf-896d-05c5bf3c036a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="src\GameObjects\Projectiles\Projectile.cpp">
       <Filter>Source Files\GameObjects\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="external\ImGui\imgui_demo.cpp">
+      <Filter>Source Files\external\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +340,9 @@
     </Image>
     <Image Include="Assets\Textures\Projectiles\cannonBall.png">
       <Filter>Assets\Textures\Projectiles</Filter>
+    </Image>
+    <Image Include="Assets\Textures\GameObjects\Enemies\GreenGuy132x150LR.png">
+      <Filter>Assets\Textures\Enemies</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

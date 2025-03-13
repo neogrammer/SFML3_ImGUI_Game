@@ -9,8 +9,8 @@ class StandardEnemy : public DrawableObj
 	FSM_Player fsmEnemy;
 	AnimHandler animHandler;
 	int health{10}, healthmax{10};
-	const sf::Color masked{ sf::Color(200, 12,12,255) };
-	const sf::Color normal{ sf::Color::White };
+	sf::Color masked{ sf::Color(0, 0, 0,255) };
+	sf::Color normal{ sf::Color::White };
 
 	bool takingDmg{ false };
 	float hitWaitDelay{0.05f};
@@ -40,6 +40,10 @@ public:
 	sf::Vector2i getTexPos();
 	sf::Color DetermineMaskColor(float dt_);
 	void GetHit(int power);
+
+	sf::Color& getColorMask();
+	
+
 
 };
 

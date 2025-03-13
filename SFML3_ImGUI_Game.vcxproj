@@ -120,6 +120,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +142,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\core;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\ImGui\imgui.cpp" />
+    <ClCompile Include="external\ImGui\imgui_demo.cpp" />
     <ClCompile Include="external\ImGui\imgui_draw.cpp" />
     <ClCompile Include="external\ImGui\ImGui_SFML3\imgui-SFML.cpp" />
     <ClCompile Include="external\ImGui\imgui_tables.cpp" />
@@ -217,6 +220,7 @@
     <Image Include="Assets\Textures\Backgrounds\bgSpace2.png" />
     <Image Include="Assets\Textures\Backgrounds\GameStartBG.jpg" />
     <Image Include="Assets\Textures\Backgrounds\GameStartBGBig.jpg" />
+    <Image Include="Assets\Textures\GameObjects\Enemies\GreenGuy132x150LR.png" />
     <Image Include="Assets\Textures\GameObjects\Player\PlayerAtlas.png" />
     <Image Include="Assets\Textures\Invariant.png" />
     <Image Include="Assets\Textures\Projectiles\busterBullet.png" />

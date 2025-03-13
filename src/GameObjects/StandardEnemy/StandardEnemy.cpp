@@ -171,3 +171,8 @@ void StandardEnemy::GetHit(int power)
 		}
 	}
 }
+
+sf::Color& StandardEnemy::getColorMask()
+{
+	return currMask;
+}
