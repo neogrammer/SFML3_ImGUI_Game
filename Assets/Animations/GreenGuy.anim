@@ -1,0 +1,21 @@
+20
+Idle Right 44 53 132 150 1 0 0 11
+ Idle Left 44 53 132 150 1 0 300 11
+ Guarding Right 44 53 132 150 1 0 0 11
+ Guarding Left 44 53 132 150 1 0 300 11
+ Warning Right 44 53 132 150 2 132 0 11
+ Warning Left 44 53 132 150 2 132 300 11
+ Hit Right 44 53 132 150 2 396   0 11
+ Hit Left 44 53 132 150 2 396 300  11 
+ StartedShooting Right 44 53 132 150 2 660  0 11
+ StartedShooting Left 44 53 132 150 2 660 300 11
+ Rising Right 44 53 132 150 3 924   0 11 
+ Rising Left 44 53 132 150 3 924  300 11
+ AtJumpTop Right 44 53 132 150 1 1188   0 11 
+ AtJumpTop Left 44 53 132 150 1 1188  300 11
+ Falling Right 44 53 132 150 1 1320  0 11 
+ Falling Left 44 53 132 150 1 1320 300 11
+ Shooting Right 44 53 132 150 7 0 150 11 
+ Shooting Left 44 53 132 150 7 0 450 11
+ Dead Right 44 53 132 150 1 1320 150 11
+ Dead Left 44 53 132 150 1 1320 150 11

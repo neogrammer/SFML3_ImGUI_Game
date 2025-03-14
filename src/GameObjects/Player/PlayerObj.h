@@ -2,6 +2,7 @@
 #include <GameObjects/DrawableObj.h>
 #include <Tilemap/TilemapTypes.h>
 #include <FSM/PlayerAnimFSM.h>
+
 #include <Animation/AnimHandler.h>
 #include <memory>
 #include  <utility>
@@ -19,7 +20,7 @@ class PlayerObj : public DrawableObj
 
 	std::vector<std::shared_ptr<Projectile>> m_bullets;
 
-	AnimHandler animHandler;
+	std::shared_ptr<AnimHandler<FSM_Player, AnimVariant>> animHandler;
 
 	std::unordered_map<Cfg::Sounds, std::shared_ptr<sf::Sound>> sounds;
 

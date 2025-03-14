@@ -32,7 +32,7 @@ void Cfg::initSounds()
 	sounds.load((int)Sounds::BustershotNormal, "Assets/Sound/sfx/x/BusterNormal.ogg");
 	sounds.load((int)Sounds::EnemyDie1, "Assets/Sound/sfx/x/enDie2.wav");
 	sounds.load((int)Sounds::EnemyHurt1, "Assets/Sound/sfx/x/Small_Hit.oga");
-	sounds.load((int)Sounds::HelmetHit, "Assets/Sound/sfx/x/HelmetHit.wav");
+	sounds.load((int)Sounds::HelmetHit, "Assets/Sound/sfx/x/HelmetHit.ogg");
 	sounds.load((int)Sounds::XCharging, "Assets/Sound/sfx/x/Charge.wav");
 	sounds.load((int)Sounds::XDie, "Assets/Sound/sfx/x/Die.wav");
 	sounds.load((int)Sounds::XHurt, "Assets/Sound/sfx/x/Hurt.wav");
@@ -46,6 +46,8 @@ void Cfg::initTextures()
 {
 	textures.load((int)Textures::Background_Start, "Assets/Textures/Backgrounds/GameStartBG.jpg");
 	textures.load((int)Textures::BGSTART_BIG, "Assets/Textures/Backgrounds/bgSpace2.png");
+	textures.load((int)Textures::GreenGuy, "Assets/Textures/GameObjects/Enemies/GreenGuy132x150LR.png");
+
 
 	textures.load((int)Textures::PlayerAtlas, "Assets/Textures/GameObjects/Player/PlayerAtlas.png");
 	textures.load((int)Textures::Tileset1, "Assets/Textures/Tilesets/IntroSet.png");

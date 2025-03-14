@@ -19,5 +19,7 @@ struct EventStartedJumping : FSMEvent { EventStartedJumping() : FSMEvent() { set
 struct EventLanding : FSMEvent { bool moving{ false };  EventLanding(bool moving_) : FSMEvent(), moving{ moving_ } { setName("Landing"); } };
 struct EventShootSetupDone : FSMEvent { EventShootSetupDone() : FSMEvent{} { setName("ShootSetupDone"); } };
 struct EventReachedJumpHeight : FSMEvent { EventReachedJumpHeight() : FSMEvent() { setName("ReachedJumpHeight"); } };
+struct EventDetectedTarget : FSMEvent { EventDetectedTarget() : FSMEvent() { setName("DetectedTarget"); } };
 
-using PlayerEventVar = std::variant<EventStartedShooting, EventMoveStartFinished, EventStartedMoving , EventStoppedMoving, EventFell, EventHit, EventJumpStartFinished, EventLanding2, EventRecovered, EventLifeDepleted, EventNearingTopOfJump, EventStoppedShooting, EventStartedJumping, EventLanding, EventShootSetupDone, EventReachedJumpHeight >;
+
+using PlayerEventVar = std::variant<EventStartedShooting, EventMoveStartFinished, EventDetectedTarget, EventStartedMoving , EventStoppedMoving, EventFell, EventHit, EventJumpStartFinished, EventLanding2, EventRecovered, EventLifeDepleted, EventNearingTopOfJump, EventStoppedShooting, EventStartedJumping, EventLanding, EventShootSetupDone, EventReachedJumpHeight >;

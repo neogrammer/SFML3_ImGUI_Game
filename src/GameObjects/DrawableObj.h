@@ -16,6 +16,8 @@
 
 class DrawableObj : public GObj
 {
+
+	template<class FSM_TYPE, class STATE_VAR>
 	friend class AnimHandler;
 protected:
 	bool m_playing{ true };
@@ -27,7 +29,10 @@ protected:
 
 	std::unordered_map<std::string, float> m_startDelays{};
 	std::unordered_map<std::string, float> m_loopDelays{};
+	
 	std::unordered_map<std::string, float> m_frameDelays{};
+
+	std::string recoveryAnim = "Idle";
 
 	// Animation Parameters
 	std::vector<sf::IntRect>* m_anim{ nullptr };

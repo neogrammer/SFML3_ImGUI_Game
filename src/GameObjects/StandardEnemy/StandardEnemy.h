@@ -4,22 +4,24 @@
 #include <core/Resources/Cfg.h>
 #include <memory>
 #include <utility>
+#include <FSM/GreenGuyAnimFSM.h>
+
 class StandardEnemy : public DrawableObj
 {
-	FSM_Player fsmEnemy;
-	AnimHandler animHandler;
-	int health{10}, healthmax{10};
+	FSM_GreenGuy fsmEnemy;
+	std::shared_ptr<AnimHandler<FSM_GreenGuy, AnimVariant>> animHandler;
+	int health{3}, healthmax{3};
 	sf::Color masked{ sf::Color(0, 0, 0,255) };
 	sf::Color normal{ sf::Color::White };
-
+	
 	bool takingDmg{ false };
 	float hitWaitDelay{0.05f};
 	float hitWaitElapsed{0.f};
 	bool justDied{ false };
 	sf::Color currMask{ normal };
 
-	std::unordered_map<Cfg::Sounds, std::shared_ptr<sf::Sound>> sounds;
 public:
+	std::unordered_map<Cfg::Sounds, std::shared_ptr<sf::Sound>> sounds;
 
 	StandardEnemy();
 	virtual ~StandardEnemy() override;
@@ -31,7 +33,7 @@ public:
 
 	void handleInput();
 
-	FSM_Player& getFsm();
+	FSM_GreenGuy& getFsm();
 	void update(float dt_) override final;
 	virtual void render(sf::RenderWindow& wnd_) override final;
 
@@ -39,7 +41,7 @@ public:
 	Cfg::Textures getTextureID();
 	sf::Vector2i getTexPos();
 	sf::Color DetermineMaskColor(float dt_);
-	void GetHit(int power);
+	bool GetHit(int power);
 
 	sf::Color& getColorMask();
 	

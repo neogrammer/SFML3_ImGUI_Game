@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -120,7 +120,6 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)src\core;$(ProjectDir)src;$(ProjectDir)external\ImGui\ImGui_SFML3;$(ProjectDir)external\ImGui;$(ProjectDir)external;$(ProjectDir)external\sfml3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,7 +161,6 @@
     <ClCompile Include="external\ImGui\imgui_tables.cpp" />
     <ClCompile Include="external\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="src\Animation\AnimHandler.cpp" />
     <ClCompile Include="src\core\Physics\Physics.cpp" />
     <ClCompile Include="src\core\Resources\Cfg.cpp" />
     <ClCompile Include="src\FSM\FSMEvent.cpp" />
@@ -197,6 +195,7 @@
     <ClInclude Include="src\FSM\Events.h" />
     <ClInclude Include="src\FSM\FSM.h" />
     <ClInclude Include="src\FSM\FSMEvent.h" />
+    <ClInclude Include="src\FSM\GreenGuyAnimFSM.h" />
     <ClInclude Include="src\FSM\IgnoreUnknownEvent.h" />
     <ClInclude Include="src\FSM\PlayerAnimFSM.h" />
     <ClInclude Include="src\FSM\PlayerAnimStates.h" />
@@ -231,8 +230,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Animations\BusterBullet.anim" />
+    <None Include="Assets\Animations\GreenGuy.anim" />
     <None Include="Assets\Animations\Player.anim" />
     <None Include="Assets\Sound\sfx\x\BusterNormal.ogg" />
+    <None Include="Assets\Sound\sfx\x\HelmetHit.ogg" />
     <None Include="Assets\Sound\sfx\x\Land.ogg" />
     <None Include="Assets\Sound\sfx\x\Small_Hit.oga" />
     <None Include="src\core\Resources\tpl\ResourceManager.tpl" />

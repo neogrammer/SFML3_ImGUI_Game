@@ -2,7 +2,7 @@
 #define PLAYERANIMFSM_H__
 #include <FSM/DuckFold.h>
 #include <optional>
-
+#include <FSM/PlayerAnimStates.h>
 #include <type_traits>
 #include <variant>
 #include <iostream>
@@ -151,6 +151,8 @@ public:
 		else if (std::holds_alternative <StartedShootingState > (state_)) { return "StartedShooting"; }
 		else if (std::holds_alternative <StartedMovingState>(state_)) { return "StartedMoving"; }
 		else if (std::holds_alternative <StartedMovingAndShootingState >(state_)) { return "StartedMovingAndShooting"; }
+		else if (std::holds_alternative <WarningState >(state_)) { return "Warning"; }
+		else if (std::holds_alternative <GuardingState >(state_)) { return "Guarding"; }
 		else { return "None"; }
 	}
 };

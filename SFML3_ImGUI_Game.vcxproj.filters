@@ -176,17 +176,11 @@
     <ClCompile Include="src\GameObjects\DrawableObj.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Physics\Physics.cpp">
-      <Filter>Source Files\core\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameObjects\Player\PlayerObj.cpp">
       <Filter>Source Files\GameObjects\Player</Filter>
     </ClCompile>
     <ClCompile Include="src\FSM\FSMEvent.cpp">
       <Filter>Source Files\FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Animation\AnimHandler.cpp">
-      <Filter>Source Files\Animation</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObjects\StandardEnemy\StandardEnemy.cpp">
       <Filter>Source Files\GameObjects\StandardEnemy</Filter>
@@ -199,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="external\ImGui\imgui_demo.cpp">
       <Filter>Source Files\external\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Physics\Physics.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,9 +253,6 @@
     <ClInclude Include="src\Tilemap\TileObj.h">
       <Filter>Header Files\Tilemap</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Physics\Physics.h">
-      <Filter>Header Files\core\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="src\FSM\DuckFold.h">
       <Filter>Header Files\FSM</Filter>
     </ClInclude>
@@ -300,6 +294,12 @@
     </ClInclude>
     <ClInclude Include="src\GameObjects\Projectiles\BusterBullet.h">
       <Filter>Header Files\GameObjects\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Physics\Physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FSM\GreenGuyAnimFSM.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +364,8 @@
     <None Include="Assets\Sound\sfx\x\Small_Hit.oga">
       <Filter>Assets\Sound\sfx\x</Filter>
     </None>
+    <None Include="Assets\Animations\GreenGuy.anim" />
+    <None Include="Assets\Sound\sfx\x\HelmetHit.ogg" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Sound\sfx\x\ChargeShot.wav">

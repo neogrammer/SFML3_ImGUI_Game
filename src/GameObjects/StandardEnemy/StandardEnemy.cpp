@@ -2,53 +2,56 @@
 
 StandardEnemy::StandardEnemy() 
 	: DrawableObj{}
-    , animHandler{ &fsmEnemy, dynamic_cast<DrawableObj*>(this) }
+    , animHandler{nullptr }
 	, sounds{}
 {
-	DrawableObj::initialize("Player.anim", { 49.f,85.f }, Cfg::Textures::PlayerAtlas, { 600.f,600.f-178.f + 43.f }, { 0.f,0.f });
-	setFrameOffset("Idle", { 44.f,43.f });
-	m_frameDelays["Idle"] = 0.13f;
-	m_loopDelays["Idle"] = 1.f;
+	DrawableObj::initialize("GreenGuy.anim", { 49.f,85.f }, Cfg::Textures::GreenGuy, { 600.f,600.f - 85.f - 64.f + 5.f }, { 0.f,0.f });
+	setFrameOffset("Guarding", { 44.f,53.f });
+	m_frameDelays["Guarding"] = 0.13f;
+	m_loopDelays["Guarding"] = 1.f;
 	m_loopWaits = true;
 
-	m_frameDelays["Moving"] = 0.09f;
-	m_loopDelays["Moving"] = 0.f;
+	setFrameOffset("Rising", { 44.f,53.f });
 
-	m_frameDelays["StartedMoving"] = 0.08f;
-	m_loopDelays["StartedMoving"] = 0.f;
+	m_frameDelays["Rising"] = 0.09f;
+	m_loopDelays["Rising"] = 0.f;
 
-	m_frameDelays["StartedShooting"] = 0.03f;
-	m_loopDelays["StartedShooting"] = 10.f;
+	setFrameOffset("AtJumpTop", { 44.f,53.f });
+
+	m_frameDelays["AtJumpTop"] = 0.08f;
+	m_loopDelays["AtJumpTop"] = 0.f;
+
+	setFrameOffset("Hit", { 44.f,53.f });
+
+	m_frameDelays["Hit"] = 0.03f;
+	m_loopDelays["Hit"] = 10.f;
+
+	setFrameOffset("Dead", { 44.f,53.f });
+
+	m_frameDelays["Dead"] = 0.08f;
+	m_loopDelays["Dead"] = 0.f;
+
+	setFrameOffset("Shooting", { 44.f,53.f });
 
 	m_frameDelays["Shooting"] = 2.f;
 	m_loopDelays["Shooting"] = 10.f;
 
+	setFrameOffset("StartedShooting", { 44.f,53.f });
 
-	m_frameDelays["MovingAndShooting"] = 0.08f;
-	m_loopDelays["MovingAndShooting"] = 0.f;
+	m_frameDelays["StartedShooting"] = 2.f;
+	m_loopDelays["StartedShooting"] = 10.f;
 
-	m_frameDelays["StartedMovingAndShooting"] = 0.08f;
-	m_loopDelays["StartedMovingAndShooting"] = 0.f;
-	m_frameDelays["StartedJump"] = 0.6f;
-	m_loopDelays["StartedJump"] = 10.f;
-	m_frameDelays["Rising"] = 0.6f;
-	m_loopDelays["Rising"] = 10.f;
-	m_frameDelays["AtJumpTop"] = 0.6f;
-	m_loopDelays["AtJumpTop"] = 10.f;
-	m_frameDelays["Falling"] = 0.6f;
-	m_loopDelays["Falling"] = 10.f;
-	m_frameDelays["Landing"] = 0.6f;
-	m_loopDelays["Landing"] = 10.f;
-	m_frameDelays["StartedJumpAndShooting"] = 0.6f;
-	m_loopDelays["StartedJumpAndShooting"] = 10.f;
-	m_frameDelays["RisingAndShooting"] = 0.6f;
-	m_loopDelays["RisingAndShooting"] = 10.f;
-	m_frameDelays["AtJumpTopAndShooting"] = 0.6f;
-	m_loopDelays["AtJumpTopAndShooting"] = 10.f;
-	m_frameDelays["FallingAndShooting"] = 0.6f;
-	m_loopDelays["FallingAndShooting"] = 10.f;
-	m_frameDelays["LandingAndShooting"] = 0.6f;
-	m_loopDelays["LandingAndShooting"] = 10.f;
+
+	setFrameOffset("Falling", { 44.f,53.f });
+
+	m_frameDelays["Falling"] = 0.08f;
+	m_loopDelays["Falling"] = 0.f;
+
+	setFrameOffset("Warning", { 44.f,53.f });
+
+	m_frameDelays["Warning"] = 0.08f;
+	m_loopDelays["Warning"] = 0.f;
+
 
 	this->m_facingRight = false;
 
@@ -62,6 +65,8 @@ StandardEnemy::StandardEnemy()
 	sounds[Cfg::Sounds::HelmetHit] = std::make_shared<sf::Sound>(*snd3);
 
 	sounds.at(Cfg::Sounds::EnemyHurt1)->setVolume(100);
+
+	animHandler = std::make_shared<AnimHandler<FSM_GreenGuy, AnimVariant>>(&fsmEnemy, dynamic_cast<DrawableObj*>(this));
 }
 
 
@@ -73,7 +78,7 @@ void StandardEnemy::handleInput()
 {
 }
 
-FSM_Player& StandardEnemy::getFsm()
+FSM_GreenGuy& StandardEnemy::getFsm()
 {
 	return fsmEnemy;
 }
@@ -81,12 +86,18 @@ FSM_Player& StandardEnemy::getFsm()
 void StandardEnemy::update(float dt_)
 {
 
-	animHandler.update(dt_);
+	if (justDied)
+	{
+		// set to be destroyed and dont update
+	}
+	else
+	{
+		animHandler->update(dt_);
 
-	DrawableObj::update(dt_);
+		DrawableObj::update(dt_);
 
-	currMask = DetermineMaskColor(dt_);
-
+		currMask = DetermineMaskColor(dt_);
+	}
 }
 
 
@@ -94,7 +105,10 @@ void StandardEnemy::update(float dt_)
 
 void StandardEnemy::render(sf::RenderWindow& wnd_)
 {
+	if (justDied) return;
 
+	if (m_animName != fsmEnemy.getStateName())
+		ChangeAnim(fsmEnemy.getStateName());
 
 	sf::Sprite spr(Cfg::textures.get((int)m_texture));
 	auto pos = GetPosition();
@@ -146,6 +160,7 @@ sf::Color StandardEnemy::DetermineMaskColor(float dt_)
 		{
 			hitWaitElapsed = 0.f;
 			takingDmg = false;
+			dispatch(fsmEnemy, EventRecovered{});
 		}
 		return masked;
 	}
@@ -155,21 +170,35 @@ sf::Color StandardEnemy::DetermineMaskColor(float dt_)
 	}
 }
 
-void StandardEnemy::GetHit(int power)
+bool StandardEnemy::GetHit(int power)
 {
 	
 	if (!takingDmg)
 	{
-		sounds.at(Cfg::Sounds::EnemyHurt1)->play();
-		takingDmg = true;
-		hitWaitElapsed = 0.f;
-		health -= power;
-		if (health <= 0)
+		if (m_animName == "Guarding" || m_animName == "Idle")
 		{
-			health = 0;
-			justDied = true;
+			
+			return false;
+		}
+		else {
+			sounds.at(Cfg::Sounds::EnemyHurt1)->play();
+			dispatch(fsmEnemy, EventHit{});
+			if (health <= 0)
+			{
+				dispatch(fsmEnemy, EventLifeDepleted{});
+			}
+			takingDmg = true;
+			hitWaitElapsed = 0.f;
+			health -= power;
+			if (health <= 0)
+			{
+				health = 0;
+				justDied = true;
+				this->sounds.at(Cfg::Sounds::EnemyDie1)->play();
+			}
 		}
 	}
+	return true;
 }
 
 sf::Color& StandardEnemy::getColorMask()

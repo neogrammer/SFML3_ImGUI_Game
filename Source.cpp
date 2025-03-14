@@ -200,8 +200,14 @@ int main(int argc, char* argv[])
         {
             if (Physics::rectVrect(bullet->GetPosition(), bullet->GetSize(), enemy.GetPosition(), enemy.GetSize()))
             {
-                enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower());
-                bullet->setAlive(false);
+                if (enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower()))
+                    bullet->setAlive(false);
+                else
+                {
+                    enemy.sounds.at(Cfg::Sounds::HelmetHit)->play();
+                    bullet->SetVelocity({ bullet->GetVelocity().x * -1.f, -40.f });
+                   
+                }
             }
         }
 

@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef PHYSICS_H__
+#define PHYSICS_H__
 #include <algorithm> // for std::max, std::min, and std::swap
 #include <GameObjects/Player/PlayerObj.h>
 #include <FSM/Events.h>
@@ -7,7 +7,7 @@
 class Physics
 {
 public:
-    static const float Gravity;
+    static float Gravity;
     //======================================================
     //  Basic AABB collision check between two GameObjects
     //======================================================
@@ -24,12 +24,12 @@ public:
         float topA = objA->GetPosition().y;
         float bottomA = objA->GetPosition().y + objA->GetSize().y;
         float leftB, rightB, topB, bottomB;
-        
+
         leftB = objB->GetPosition().x;
         rightB = objB->GetPosition().x + objB->GetSize().x;
         topB = objB->GetPosition().y;
         bottomB = objB->GetPosition().y + objB->GetSize().y;
-    
+
         if (leftA < rightB && rightA > leftB && topA < bottomB && bottomA > topB)
         {
             // in collision, figure out length from center to center
@@ -42,7 +42,7 @@ public:
         {
             length = -1.f;
         }
-        return (leftA < rightB&& rightA > leftB && topA < bottomB&& bottomA > topB);
+        return (leftA < rightB && rightA > leftB && topA < bottomB && bottomA > topB);
     }
 
     //======================================================
@@ -192,11 +192,11 @@ public:
         float topD = dynamicObj->GetPosition().y;
         float bottomD = dynamicObj->GetPosition().y + dynamicObj->GetSize().y;
         float leftS, rightS, topS, bottomS;
-            leftS = staticObj->GetPosition().x;
-            rightS = staticObj->GetPosition().x + staticObj->GetSize().x;
-            topS = staticObj->GetPosition().y;
-            bottomS = staticObj->GetPosition().y + staticObj->GetSize().y;
-     
+        leftS = staticObj->GetPosition().x;
+        rightS = staticObj->GetPosition().x + staticObj->GetSize().x;
+        topS = staticObj->GetPosition().y;
+        bottomS = staticObj->GetPosition().y + staticObj->GetSize().y;
+
         float overlapLeft = rightD - leftS;
         float overlapRight = rightS - leftD;
         float overlapTop = bottomD - topS;
@@ -236,48 +236,49 @@ public:
         else if (axis == "Right")
         {
             newX += minOverlap;
-            dynamicObj->SetVelocity({0.f,  dynamicObj->GetVelocity().y });
-//            dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
+            dynamicObj->SetVelocity({ 0.f,  dynamicObj->GetVelocity().y });
+            //            dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
 
         }
         else if (axis == "Top")
         {
             newY -= minOverlap;
-   //         dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
+            //         dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
             dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
-            
+
             if (!dynamicObj->GetOnGround())
             {
                 if (dynamic_cast<PlayerObj*>(dynamicObj) != nullptr)
                 {
                     auto* p = dynamic_cast<PlayerObj*>(dynamicObj);
-                    p->disp(EventLanding{(fabsf(p->GetVelocity().x) > 0.f)});
+                    p->disp(EventLanding{ (fabsf(p->GetVelocity().x) > 0.f) });
                 }
             }
-           dynamicObj->SetOnGround(true);
-           
-            
-           
-           
-           /* setAnimation("Idle");
+            dynamicObj->SetOnGround(true);
 
-                if (std::abs(dynamic_cast<Player*>(dynamicObj)->currVelocity().x) >= 0.01f)
-                    dynamic_cast<Player*>(dynamicObj)->setAnimation("Walk");*/
 
-                //dynamic_cast<Player*>(dynamicObj)->setCanJump(true);
-            
+
+
+            /* setAnimation("Idle");
+
+                 if (std::abs(dynamic_cast<Player*>(dynamicObj)->currVelocity().x) >= 0.01f)
+                     dynamic_cast<Player*>(dynamicObj)->setAnimation("Walk");*/
+
+                     //dynamic_cast<Player*>(dynamicObj)->setCanJump(true);
+
 
         }
         else if (axis == "Bottom")
         {
             newY += minOverlap;
-      //      dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
+            //      dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
             dynamicObj->SetVelocity({ dynamicObj->GetVelocity().x, 0.f });
 
         }
-       
+
         dynamicObj->SetPosition({ newX, newY });
     }
 };
 
 
+#endif

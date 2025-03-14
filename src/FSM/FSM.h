@@ -3,7 +3,7 @@
 #include <variant>
 #include <optional>
 #include <FSM/Events.h>
-#include <FSM/PlayerAnimStates.h>
+
 #include <string>
 
 template <typename Derived, typename StateVariant>

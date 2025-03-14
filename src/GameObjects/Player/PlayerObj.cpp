@@ -4,7 +4,7 @@
 
 PlayerObj::PlayerObj() : DrawableObj{}
 , fsmPlayer{}
-, animHandler{ &fsmPlayer, dynamic_cast<DrawableObj*>(this) }
+, animHandler{ nullptr }
 , m_bullets{}
 , sounds{}
 {
@@ -78,8 +78,10 @@ PlayerObj::PlayerObj() : DrawableObj{}
 	sounds.at(Cfg::Sounds::XJump)->setVolume(100);
 	sounds.at(Cfg::Sounds::XLand)->setVolume(100);
 
+	dispatch(fsmPlayer, EventFell{});
+	ChangeAnim("Falling");
 
-
+	animHandler = std::make_shared<AnimHandler<FSM_Player, AnimVariant>>(&fsmPlayer, dynamic_cast<DrawableObj*>(this));
 };
 	
 
@@ -220,8 +222,11 @@ void PlayerObj::update(float dt_)
 				if (firstTimeShot)
 					firstTimeShot = false;
 
-				sounds.at(Cfg::Sounds::BustershotNormal)->play();
-				if (m_bullets.size() < this->MAXBULLETS) m_bullets.push_back(CreateBullet());
+				if (m_bullets.size() < this->MAXBULLETS)
+				{
+					sounds.at(Cfg::Sounds::BustershotNormal)->play();
+					m_bullets.push_back(CreateBullet());
+				}
 				dispatch(fsmPlayer,  EventShootSetupDone{});
 				shootSetupDone = true;
 				shootElapsed = 0.f;
@@ -335,7 +340,7 @@ void PlayerObj::update(float dt_)
 	if (GetVelocity().y > 1600.f)
 		SetVelocity({ GetVelocity().x, 1600.f });
 
-	animHandler.update(dt_);
+	animHandler->update(dt_);
 
 	DrawableObj::update(dt_);
 }
