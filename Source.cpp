@@ -200,14 +200,53 @@ int main(int argc, char* argv[])
         {
             if (Physics::rectVrect(bullet->GetPosition(), bullet->GetSize(), enemy.GetPosition(), enemy.GetSize()))
             {
-                if (enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower()))
-                    bullet->setAlive(false);
+                if (enemy.getFsm().getStateName() == "Guarding" && bullet->GetVelocity().x < 0)
+                {
+                    if (enemy.m_facingRight == true) {
+                        enemy.sounds.at(Cfg::Sounds::HelmetHit)->play();
+                        bullet->SetVelocity({ bullet->GetVelocity().x * -1.f, -40.f });
+                    }
+                    
+                if (enemy.getFsm().getStateName() == "Guarding" && bullet->GetVelocity().x < 0)
+                {
+                    if (enemy.m_facingRight == false) {
+                        if (enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower()))
+                        {
+                            bullet->setAlive(false);
+                        }
+
+
+                         
+                        }
+                    }
+                }
+                else if (enemy.getFsm().getStateName() == "Guarding" && bullet->GetVelocity().x > 0)
+                {
+                    if (enemy.m_facingRight == false) {
+                        if (enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower()))
+                        {
+                            bullet->setAlive(false);
+                        }
+                    }
+                }
+                else if (enemy.getFsm().getStateName() == "Guarding" && bullet->GetVelocity().x > 0)
+                {
+
+                    if (enemy.m_facingRight == true) {
+                        enemy.sounds.at(Cfg::Sounds::HelmetHit)->play();
+                        bullet->SetVelocity({ bullet->GetVelocity().x * -1.f, -40.f });
+                    }
+                }
                 else
                 {
-                    enemy.sounds.at(Cfg::Sounds::HelmetHit)->play();
-                    bullet->SetVelocity({ bullet->GetVelocity().x * -1.f, -40.f });
-                   
+
+                    if (enemy.GetHit(dynamic_cast<BusterBullet*>(bullet.get())->GetPower()))
+                    {
+                        bullet->setAlive(false);
+                    }
                 }
+                 
+              
             }
         }
 
