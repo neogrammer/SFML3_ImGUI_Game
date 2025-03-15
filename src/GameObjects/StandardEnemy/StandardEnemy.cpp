@@ -89,15 +89,61 @@ void StandardEnemy::update(float dt_)
 	if (justDied)
 	{
 		// set to be destroyed and dont update
+		dispatch(fsmEnemy, EventLifeDepleted{}); 
+		ChangeAnim("Dead");
 	}
-	else
-	{
+
+		if ((m_animName == "Guarding" || m_animName == "Idle") && firstRun)
+		{
+			idleElapsed = 0.f;
+			firstRun = false;
+			/*if (!secondComeThrough)
+			{
+				idleElapsed = 0.f;
+				firstRun = false;
+			}
+			else
+			{*/
+			// do nothing
+			/*int i = 0;
+			firstRun = false;*/
+			//	}
+		
+		}
+		
+		
+		if ((m_animName == "Guarding" || m_animName == "Idle") && !firstRun)
+		{
+			//if (secondComeThrough)
+		//	{
+		//		int i = 0;
+		//	}
+		//	else
+		//	{
+
+				idleElapsed += dt_;
+				if (idleElapsed >= idleDuration)
+				{
+				
+					firstRun = true;
+					dispatch(fsmEnemy, EventStartedShooting{});
+				}
+		//	}
+		}
+
+		if (m_animName == "StartedShooting")
+		{
+			int i = 0;
+		}
+
+
+
 		animHandler->update(dt_);
 
 		DrawableObj::update(dt_);
 
 		currMask = DetermineMaskColor(dt_);
-	}
+	
 }
 
 

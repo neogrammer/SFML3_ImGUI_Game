@@ -14,10 +14,13 @@ public:
 	std::optional<AnimVariant> On_Event(GuardingState& s, const EventHit& e) { std::cout << "Hit" << std::endl; return HitState{}; }
 	std::optional<AnimVariant> On_Event(GuardingState& s, const EventLifeDepleted& e) { std::cout << "Dead" << std::endl; return DeadState{}; }
 	std::optional<AnimVariant> On_Event(GuardingState& s, const EventDetectedTarget& e) { std::cout << "Warning" << std::endl; return WarningState{}; }
+	std::optional<AnimVariant> On_Event(GuardingState& s, const EventStartedShooting& e) { std::cout << "StartedShooting" << std::endl; return StartedShootingState{}; }
 
 	std::optional<AnimVariant> On_Event(IdleState& s, const EventHit& e) { std::cout << "Hit" << std::endl; return HitState{}; }
 	std::optional<AnimVariant> On_Event(IdleState& s, const EventLifeDepleted& e) { std::cout << "Dead" << std::endl; return DeadState{}; }
 	std::optional<AnimVariant> On_Event(IdleState& s, const EventDetectedTarget& e) { std::cout << "Warning" << std::endl; return WarningState{}; }
+	std::optional<AnimVariant> On_Event(IdleState& s, const EventStartedShooting& e) { std::cout << "StartedShooting" << std::endl; return StartedShootingState{}; }
+
 
 
 	std::optional<AnimVariant> On_Event(HitState& s, const EventRecovered& e) { std::cout << "Falling" << std::endl; return GuardingState{}; }

@@ -13,13 +13,15 @@ class StandardEnemy : public DrawableObj
 	int health{3}, healthmax{3};
 	sf::Color masked{ sf::Color(0, 0, 0,255) };
 	sf::Color normal{ sf::Color::White };
-	
+	bool firstRun{ true };
 	bool takingDmg{ false };
 	float hitWaitDelay{0.05f};
 	float hitWaitElapsed{0.f};
 	bool justDied{ false };
 	sf::Color currMask{ normal };
-
+	sf::Clock idleTimer{};
+	float idleDuration{ 3.f };
+	float idleElapsed{ 0 };
 public:
 	std::unordered_map<Cfg::Sounds, std::shared_ptr<sf::Sound>> sounds;
 
